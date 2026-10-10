@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f3f5ef">
+  <meta name="description" content="An offline-first UGC NET Psychology JRF study planner and progress tracker.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
+  <title>StudyDesk · UGC NET JRF</title>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div class="app-frame">
+    <header class="topbar">
+      <a class="brand" href="#today" aria-label="StudyDesk home" data-action="navigate" data-view="dashboard">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M5 8.5c4.6-2.1 9.1-1.6 13 1.2v18c-3.9-2.8-8.4-3.3-13-1.2z"/><path d="M31 8.5c-4.6-2.1-9.1-1.6-13 1.2v18c3.9-2.8 8.4-3.3 13-1.2z"/><path d="M18 10v18"/></svg></span>
+        <span class="brand-copy"><strong>StudyDesk</strong><small>UGC NET · JRF 2026</small></span>
+      </a>
+      <div class="topbar-actions">
+        <div class="exam-chip" id="header-countdown" aria-live="polite"></div>
+        <button class="icon-button" id="theme-toggle" type="button" aria-label="Switch colour theme" title="Switch theme"></button>
+      </div>
+    </header>
+    <div class="workspace">
+      <aside class="desktop-sidebar" aria-label="Main navigation">
+        <div id="desktop-nav" class="nav-stack"></div>
+        <div class="sidebar-bottom">
+          <div class="sidebar-note"><span class="dot dot-green"></span> Stored on this device</div>
+          <button class="sidebar-link" type="button" data-action="navigate" data-view="install">Install &amp; offline guide <span aria-hidden="true">↗</span></button>
+        </div>
+      </aside>
+      <main id="main-content" class="main-content" tabindex="-1">
+        <div class="loading-state"><span class="loader"></span><p>Loading your study space…</p></div>
+      </main>
+    </div>
+    <nav id="mobile-nav" class="mobile-nav" aria-label="Primary navigation"></nav>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="update-banner" class="update-banner" hidden>
+    <span>A safe offline update is ready.</span>
+    <button type="button" data-action="apply-update">Reload to update</button>
+    <button class="quiet-button" type="button" data-action="dismiss-update" aria-label="Dismiss update notice">×</button>
+  </div>
+  <script src="./data.js"></script>
+  <script src="./core.js"></script>
+  <script src="./db.js"></script>
+  <script src="./app.js"></script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a48318829bbb7fc1',t:'MTc5MTYwODc4Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4bc70e2c01a94c73b74392e4234840661791215815920" integrity="sha512-L0ha0OXavK/8okipN9F8BtP84dg9DUhPERbBXzwI6dgTA55d2+yweo3pn5CSFYs45/r8md2+xvUPtTdvTNRfjA==" data-cf-beacon='{"version":"2024.11.0","token":"1954b47c125f43f8b4338b3c4f804e4f","spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>
