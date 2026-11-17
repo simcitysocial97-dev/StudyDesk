@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:svg xmlns:ns0="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <ns0:rect x="40" y="100" width="120" height="130" fill="#f1f5f9" stroke="#475569" stroke-width="2" rx="6" />
+  <ns0:text x="100" y="120" font-size="11" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">James–Lange</ns0:text>
+  <ns0:text x="100" y="150" font-size="10" fill="#1e293b" text-anchor="middle" font-family="Arial, sans-serif">Stimulus → arousal → emotion</ns0:text>
+  <ns0:rect x="180" y="100" width="120" height="130" fill="#f1f5f9" stroke="#475569" stroke-width="2" rx="6" />
+  <ns0:text x="240" y="120" font-size="11" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Cannon–Bard</ns0:text>
+  <ns0:text x="240" y="150" font-size="10" fill="#1e293b" text-anchor="middle" font-family="Arial, sans-serif">Stimulus → arousal + emotion</ns0:text>
+  <ns0:rect x="320" y="100" width="120" height="130" fill="#f1f5f9" stroke="#475569" stroke-width="2" rx="6" />
+  <ns0:text x="380" y="120" font-size="11" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Schachter–Singer</ns0:text>
+  <ns0:text x="380" y="150" font-size="10" fill="#1e293b" text-anchor="middle" font-family="Arial, sans-serif">Arousal + label → emotion</ns0:text>
+  <ns0:rect x="460" y="100" width="120" height="130" fill="#f1f5f9" stroke="#475569" stroke-width="2" rx="6" />
+  <ns0:text x="520" y="120" font-size="11" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Cognitive Appraisal</ns0:text>
+  <ns0:text x="520" y="150" font-size="10" fill="#1e293b" text-anchor="middle" font-family="Arial, sans-serif">Appraisal → emotion</ns0:text>
+  <ns0:text x="300" y="40" font-size="16" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Four Major Theories of Emotion</ns0:text>
+</ns0:svg>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1000" height="450" viewBox="0 0 1000 450" xmlns="http://www.w3.org/2000/svg">
+<style>
+  .label { font-family: Arial, sans-serif; font-size: 12px; fill: #333; text-anchor: middle; }
+  .title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #1a1a2e; text-anchor: middle; }
+  .axis { stroke: #333; stroke-width: 1.5; }
+  .curve { fill: none; stroke: #2c3e50; stroke-width: 2.5; }
+  .bar { fill: #3498db; stroke: #2980b9; stroke-width: 1; }
+  .bar2 { fill: #e74c3c; stroke: #c0392b; stroke-width: 1; }
+  .arrow { fill: #2c3e50; stroke: #2c3e50; stroke-width: 2; marker-end: url(#arrowhead); }
+  .node { fill: #ecf0f1; stroke: #34495e; stroke-width: 1.5; }
+  .node-text { font-family: Arial, sans-serif; font-size: 11px; fill: #2c3e50; text-anchor: middle; }
+  .box { fill: #f8f9fa; stroke: #34495e; stroke-width: 1.5; }
+</style>
+<defs><marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/></marker></defs>
+<title>Unit 02 Visual</title>
+<rect width="100%" height="100%" fill="#ffffff"/>
+
+<text x="400" y="25" class="title">Research Design Classification</text>
+<!-- Root -->
+<rect x="300" y="60" width="200" height="50" class="node"/>
+<text x="400" y="88" class="node-text">Research Designs</text>
+<line x1="400" y1="110" x2="400" y2="150" class="arrow"/>
+<!-- Three branches -->
+<rect x="50" y="160" width="150" height="50" class="node"/>
+<text x="125" y="188" class="node-text">Pre-Experimental</text>
+<line x1="340" y1="130" x2="125" y2="180" class="arrow"/>
+<rect x="400" y="160" width="200" height="50" class="node"/>
+<text x="500" y="188" class="node-text">True-Experimental</text>
+<text x="500" y="202" class="node-text">(Random Assignment)</text>
+<line x1="400" y1="130" x2="500" y2="180" class="arrow"/>
+<rect x="720" y="160" width="150" height="50" class="node"/>
+<text x="795" y="188" class="node-text">Quasi-Experimental</text>
+<line x1="460" y1="130" x2="795" y2="180" class="arrow"/>
+<!-- Subtypes -->
+<rect x="20" y="270" width="130" height="35" class="node"/><text x="85" y="290" class="node-text">One-shot case study</text>
+<rect x="170" y="270" width="130" height="35" class="node"/><text x="235" y="290" class="node-text">One-group pretest-posttest</text>
+<rect x="320" y="270" width="130" height="35" class="node"/><text x="385" y="290" class="node-text">Pretest-posttest control</text>
+<rect x="470" y="270" width="130" height="35" class="node"/><text x="535" y="290" class="node-text">Solomon four-group</text>
+<rect x="620" y="270" width="130" height="35" class="node"/><text x="685" y="290" class="node-text">Latin square</text>
+<rect x="770" y="270" width="130" height="35" class="node"/><text x="835" y="290" class="node-text">Non-equivalent groups</text>
+<line x1="125" y1="210" x2="85" y2="280" class="arrow"/><line x1="125" y1="210" x2="235" y2="280" class="arrow"/>
+<line x1="500" y1="210" x2="385" y2="280" class="arrow"/><line x1="500" y1="210" x2="535" y2="280" class="arrow"/><line x1="500" y1="210" x2="685" y2="280" class="arrow"/>
+<line x1="795" y1="210" x2="835" y2="280" class="arrow"/>
+
+</svg>

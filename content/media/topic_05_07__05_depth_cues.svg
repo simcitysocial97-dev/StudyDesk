@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="550" height="190" viewBox="0 0 550 190" xmlns="http://www.w3.org/2000/svg">
+<style>
+  .label { font-family: Arial, sans-serif; font-size: 12px; fill: #333; text-anchor: middle; }
+  .title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #1a1a2e; text-anchor: middle; }
+  .axis { stroke: #333; stroke-width: 1.5; }
+  .curve { fill: none; stroke: #2c3e50; stroke-width: 2.5; }
+  .arrow { fill: #2c3e50; stroke: #2c3e50; stroke-width: 2; marker-end: url(#arrowhead); }
+  .node { fill: #ecf0f1; stroke: #34495e; stroke-width: 1.5; }
+  .node-text { font-family: Arial, sans-serif; font-size: 11px; fill: #2c3e50; text-anchor: middle; }
+  .box { fill: #f8f9fa; stroke: #34495e; stroke-width: 1.5; }
+</style>
+<defs><marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/></marker></defs>
+<title>Unit 05: 05_depth_cues.svg</title>
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="400" y="30" class="title">Depth Cues</text><rect x="50" y="80" width="120" height="80" class="box"/><text x="110" y="105" class="label">Monocular</text><rect x="380" y="80" width="120" height="80" class="box"/><text x="440" y="105" class="label">Binocular</text>
+</svg>

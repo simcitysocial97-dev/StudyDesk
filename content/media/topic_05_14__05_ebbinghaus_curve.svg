@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="340" height="190" viewBox="0 0 340 190" xmlns="http://www.w3.org/2000/svg">
+<style>
+  .label { font-family: Arial, sans-serif; font-size: 12px; fill: #333; text-anchor: middle; }
+  .title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #1a1a2e; text-anchor: middle; }
+  .axis { stroke: #333; stroke-width: 1.5; }
+  .curve { fill: none; stroke: #2c3e50; stroke-width: 2.5; }
+  .arrow { fill: #2c3e50; stroke: #2c3e50; stroke-width: 2; marker-end: url(#arrowhead); }
+  .node { fill: #ecf0f1; stroke: #34495e; stroke-width: 1.5; }
+  .node-text { font-family: Arial, sans-serif; font-size: 11px; fill: #2c3e50; text-anchor: middle; }
+  .box { fill: #f8f9fa; stroke: #34495e; stroke-width: 1.5; }
+</style>
+<defs><marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/></marker></defs>
+<title>Unit 05: 05_ebbinghaus_curve.svg</title>
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="400" y="30" class="title">Forgetting Curve</text><line x1="80" y1="150" x2="320" y2="150" class="axis"/><line x1="80" y1="50" x2="80" y2="150" class="axis"/><path d="M 80 60 Q 150 90 220 140 Q 280 145 320 147" class="curve"/><text x="320" y="170" class="label">Time</text>
+</svg>

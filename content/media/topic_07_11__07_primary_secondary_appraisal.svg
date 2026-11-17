@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:svg xmlns:ns0="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <ns0:rect x="60" y="140" width="110" height="60" fill="#f1f5f9" stroke="#475569" stroke-width="2" rx="6" />
+  <ns0:text x="115" y="172" font-size="11" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Primary appraisal</ns0:text>
+  <ns0:line x1="170" y1="170" x2="190" y2="170" stroke="#475569" stroke-width="2" />
+  <ns0:rect x="190" y="140" width="110" height="60" fill="#f1f5f9" stroke="#475569" stroke-width="2" rx="6" />
+  <ns0:text x="245" y="172" font-size="11" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Secondary appraisal</ns0:text>
+  <ns0:line x1="300" y1="170" x2="320" y2="170" stroke="#475569" stroke-width="2" />
+  <ns0:rect x="320" y="140" width="110" height="60" fill="#f1f5f9" stroke="#475569" stroke-width="2" rx="6" />
+  <ns0:text x="375" y="172" font-size="11" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Coping</ns0:text>
+  <ns0:line x1="430" y1="170" x2="450" y2="170" stroke="#475569" stroke-width="2" />
+  <ns0:rect x="450" y="140" width="110" height="60" fill="#f1f5f9" stroke="#475569" stroke-width="2" rx="6" />
+  <ns0:text x="505" y="172" font-size="11" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Reappraisal</ns0:text>
+  <ns0:text x="300" y="60" font-size="16" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Lazarus: Primary &amp; Secondary Appraisal</ns0:text>
+  <ns0:text x="300" y="250" font-size="11" fill="#1e293b" text-anchor="middle" font-family="Arial, sans-serif">Is this stressful? → What can I do? → Act → Re-evaluate</ns0:text>
+</ns0:svg>

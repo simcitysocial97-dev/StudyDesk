@@ -1,0 +1,32 @@
+<svg width="880" height="300" viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" title="Diagram">
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><polygon points="0,0 8,3.5 0,7" fill="#9CA3AF"/></marker></defs>
+<rect x="30" y="100" width="110" height="70" rx="8" ry="4" fill="#FFFFFF" stroke="#7C3AED" stroke-width="2"/>
+<text x="85.0" y="114" font-family="Calibri" font-size="10" fill="#7C3AED" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="85.0" dy="0">1</tspan><tspan x="85.0" dy="12.0">Research question</tspan></text>
+<text x="85.0" y="134" font-family="Calibri" font-size="9" fill="#222222" text-anchor="middle" dominant-baseline="middle"><tspan x="85.0" dy="0">Does sleep affect</tspan><tspan x="85.0" dy="9.9">memory?</tspan></text>
+<line x1="142" y1="135.0" x2="152" y2="135.0" stroke="#7C3AED" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="154" y="100" width="110" height="70" rx="8" ry="4" fill="#FFFFFF" stroke="#0891B2" stroke-width="2"/>
+<text x="209.0" y="114" font-family="Calibri" font-size="10" fill="#0891B2" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="209.0" dy="0">2</tspan><tspan x="209.0" dy="12.0">Independent</tspan><tspan x="209.0" dy="12.0">variable</tspan></text>
+<text x="209.0" y="134" font-family="Calibri" font-size="9" fill="#222222" text-anchor="middle" dominant-baseline="middle"><tspan x="209.0" dy="0">Sleep duration</tspan><tspan x="209.0" dy="9.9">(manipulated)</tspan></text>
+<line x1="266" y1="135.0" x2="276" y2="135.0" stroke="#0891B2" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="278" y="100" width="110" height="70" rx="8" ry="4" fill="#FFFFFF" stroke="#0891B2" stroke-width="2"/>
+<text x="333.0" y="114" font-family="Calibri" font-size="10" fill="#0891B2" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="333.0" dy="0">3</tspan><tspan x="333.0" dy="12.0">Dependent</tspan><tspan x="333.0" dy="12.0">variable</tspan></text>
+<text x="333.0" y="134" font-family="Calibri" font-size="9" fill="#222222" text-anchor="middle" dominant-baseline="middle"><tspan x="333.0" dy="0">Memory performance</tspan><tspan x="333.0" dy="9.9">(measured)</tspan></text>
+<line x1="390" y1="135.0" x2="400" y2="135.0" stroke="#0891B2" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="402" y="100" width="110" height="70" rx="8" ry="4" fill="#FFFFFF" stroke="#7C3AED" stroke-width="2"/>
+<text x="457.0" y="114" font-family="Calibri" font-size="10" fill="#7C3AED" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="457.0" dy="0">4</tspan><tspan x="457.0" dy="12.0">Control</tspan><tspan x="457.0" dy="12.0">variables</tspan></text>
+<text x="457.0" y="134" font-family="Calibri" font-size="9" fill="#222222" text-anchor="middle" dominant-baseline="middle"><tspan x="457.0" dy="0">Participant conditions,</tspan><tspan x="457.0" dy="9.9">environment</tspan></text>
+<line x1="514" y1="135.0" x2="524" y2="135.0" stroke="#7C3AED" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="526" y="100" width="110" height="70" rx="8" ry="4" fill="#FFFFFF" stroke="#BE185D" stroke-width="2"/>
+<text x="581.0" y="114" font-family="Calibri" font-size="10" fill="#BE185D" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="581.0" dy="0">5</tspan><tspan x="581.0" dy="12.0">Conduct</tspan><tspan x="581.0" dy="12.0">experiment</tspan></text>
+<text x="581.0" y="134" font-family="Calibri" font-size="9" fill="#222222" text-anchor="middle" dominant-baseline="middle"><tspan x="581.0" dy="0">Collect data under</tspan><tspan x="581.0" dy="9.9">controlled conditions</tspan></text>
+<line x1="638" y1="135.0" x2="648" y2="135.0" stroke="#BE185D" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="650" y="100" width="110" height="70" rx="8" ry="4" fill="#FFFFFF" stroke="#7C3AED" stroke-width="2"/>
+<text x="705.0" y="114" font-family="Calibri" font-size="10" fill="#7C3AED" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="705.0" dy="0">6</tspan><tspan x="705.0" dy="12.0">Analyse</tspan><tspan x="705.0" dy="12.0">results</tspan></text>
+<text x="705.0" y="134" font-family="Calibri" font-size="9" fill="#222222" text-anchor="middle" dominant-baseline="middle"><tspan x="705.0" dy="0">Statistical test of</tspan><tspan x="705.0" dy="9.9">the relationship</tspan></text>
+<line x1="762" y1="135.0" x2="772" y2="135.0" stroke="#7C3AED" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="774" y="100" width="110" height="70" rx="8" ry="4" fill="#FFFFFF" stroke="#059669" stroke-width="2"/>
+<text x="829.0" y="114" font-family="Calibri" font-size="10" fill="#059669" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="829.0" dy="0">7</tspan><tspan x="829.0" dy="12.0">Evaluate</tspan><tspan x="829.0" dy="12.0">hypothesis</tspan></text>
+<text x="829.0" y="134" font-family="Calibri" font-size="9" fill="#222222" text-anchor="middle" dominant-baseline="middle"><tspan x="829.0" dy="0">Supported → conclude</tspan><tspan x="829.0" dy="9.9">Not supported → revise</tspan></text>
+<text x="420" y="230" font-family="Calibri" font-size="10" fill="#222222" text-anchor="middle" dominant-baseline="middle"><tspan x="420" dy="0">Control other variables so any change in memory is attributed to sleep duration.</tspan></text>
+<text x="420" y="250" font-family="Calibri" font-size="10" fill="#595959" text-anchor="middle" dominant-baseline="middle"><tspan x="420" dy="0">Strength: cause–effect. Limitation: artificial setting; ethical limits. Correlation ≠ causation.</tspan></text>
+</svg>

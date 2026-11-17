@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:svg xmlns:ns0="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <ns0:polygon points="240,350 360,350 300,300" fill="#dcfce7" stroke="#475569" stroke-width="2" />
+  <ns0:text x="300" y="330" font-size="11" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Self-actualisation</ns0:text>
+  <ns0:polygon points="220,300 380,300 300,250" fill="#dcfce7" stroke="#475569" stroke-width="2" />
+  <ns0:text x="300" y="280" font-size="11" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Esteem</ns0:text>
+  <ns0:polygon points="200,250 400,250 300,200" fill="#dcfce7" stroke="#475569" stroke-width="2" />
+  <ns0:text x="300" y="230" font-size="11" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Love &amp; belonging</ns0:text>
+  <ns0:polygon points="180,200 420,200 300,150" fill="#dcfce7" stroke="#475569" stroke-width="2" />
+  <ns0:text x="300" y="180" font-size="11" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Safety</ns0:text>
+  <ns0:polygon points="160,150 440,150 300,100" fill="#dcfce7" stroke="#475569" stroke-width="2" />
+  <ns0:text x="300" y="130" font-size="11" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Physiological</ns0:text>
+  <ns0:text x="300" y="40" font-size="16" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Maslow's Hierarchy of Needs</ns0:text>
+  <ns0:text x="300" y="330" font-size="11" fill="#1e293b" text-anchor="middle" font-family="Arial, sans-serif">Lower needs must be met before growth needs</ns0:text>
+</ns0:svg>

@@ -1,6 +1,6 @@
-# StudyDesk — UGC NET Psychology JRF Preparation Tracker
+# StudyDesk — UGC NET Psychology 15-Day Revision & Practice
 
-A mobile-first, installable, offline-capable Progressive Web App for the UGC NET December 2026 preparation profile described in the project request. It has **no framework dependencies, no runtime CDN, no login, no paid API and no backend**. The project is plain HTML, CSS and JavaScript.
+A mobile-first, installable, offline-capable Progressive Web App for a 15-day UGC NET December 2026 Psychology revision and practice sprint. It has **no framework dependencies, no runtime CDN, no login, no paid API and no backend**. The project is plain HTML, CSS and JavaScript.
 
 > This project has not been installed or deployed for you. Serve it over HTTPS (or `localhost` for development) before installing it as a PWA. Opening `index.html` as a `file://` URL is not enough for normal PWA installation.
 
@@ -29,30 +29,38 @@ Upload the project folder to Netlify Drop or connect the repository. Netlify ser
 
 For Android, open the HTTPS URL in Chrome, load it once online, then use **⋮ → Install app** or **Add to Home screen**. Menu wording varies by Chrome version. Open the installed app once before testing offline. External official-syllabus links still need internet; the tracker shell works offline after it is cached.
 
-## Included features
+## What the app does
 
-- Complete official unit navigators: all 10 Paper 2 Psychology units and all 10 Paper 1 units.
-- Priority-based 60-day schedule matching the supplied plan, with Paper 1 topics and rotating quantitative, logic, DI and comprehension practice alongside Paper 2.
-- A separate 15-day emergency plan, labeled **selective coverage, not full-depth mastery**. Switching modes does not erase the other plan.
-- Expandable unit → topic → subtopic → concept checklists; concept status, editable target/title, notes, source, priority, difficulty, value, minutes, confidence, quiz scores and dates.
-- Editable start/exam dates, per-day date overrides, targets, day status, notes and rescheduling. Unfinished work stays unfinished until you check it.
-- Spaced revisions (default 1, 3, 7, 14 days), revision history, confidence before/after and a one-retry “still unclear” path.
-- PYQ/error log with manual entry and CSV import/export. No PYQ questions or answer keys are fabricated.
-- Mock-test log, configurable marking settings, score trends, and a study timer that records only stopped sessions.
-- Notebook, topic/day/concept notes, searchable reports, JSON backup/restore and task-progress CSV export.
-- Light/dark themes, responsive mobile bottom navigation, large controls, Android icons, install guide and safe service-worker update prompt.
+A **15-day revision and practice plan** for UGC NET Psychology (Paper 2). The 60-day plan has been removed.
+
+- **15-day plan.** Days 1–12 take one unit (or half of a heavy unit) each: Unit 2 ×2, 3, 5 ×2, 4, 6, 7, 1, 8, 9, 10. Day 13 repairs wrong answers, day 14 is a timed mixed 50-question set, day 15 is a final pass. Every one of the 111 topics is scheduled exactly once.
+- **Daily progress is derived from what you do**, not self-reported: topics marked revised, questions answered in that day's practice, flashcards due. You still mark a day complete yourself, and nothing is auto-completed or skipped.
+- **Revise.** Per topic: one-line summary, objectives, key terms, exam traps, commonly-confused points, definitions, memory aids, comparison tables, diagrams, full notes and flashcards. Unit browser and title search.
+- **Flashcards.** 279 cards on a 5-box schedule sized for 15 days (again = same day, then 1, 2, 4, 7 days). Missed cards return once more in the same session.
+- **Practice.** 3,336 questions across all 10 units (conceptual, application, multi-statement, matching, assertion–reason, experimental analysis, numerical), each with an explanation and a reason for every option. Filter by unit, topic, difficulty and type; modes: new first, weakest + new, wrong only, flagged only. Optional exam mode hides feedback until the end. Unfinished sets resume after a reload. Wrong answers feed the repair days; answering one correctly removes it from the wrong list.
+- Kept from the original tracker: official syllabus checklist (Paper 2 is linked to the plan day for its unit; Paper 1 is listed but not scheduled), PYQ log with CSV import/export, mock-test log, study timer, notebook, reports, JSON backup/restore, light/dark theme, offline install.
+
+> **The practice questions are generated, not official past papers.** Every record in the supplied bank has `status: "draft"`. Treat explanations as study aids and check anything doubtful against your textbook. Log real PYQs in *Mocks & logs*.
+
+## Content pack
+
+`content/` is generated from the two source folders and committed, so the app needs nothing else to run. To rebuild after editing the source:
+
+```bash
+node tools/import-content.js ../psychology ../question-bank
+```
+
+The folders default to siblings of `StudyDesk/` (what you get from extracting `Desktop.zip` next to it). The importer reports how many records it skipped; 13 of the 3,349 source questions are skipped because they contain no question text, statements or lists at all. An earlier importer silently dropped 273 assertion–reason, matching and multi-statement questions and the statements of 339 multi-statement questions; both are fixed and covered by tests.
+
+Offline: the shell and `content/index.json` are cached on first load; notes, questions and diagrams are cached as you open them. **Revise → Save for offline** downloads everything (about 5 MB) at once.
 
 ## Data model and progress calculations
 
-- **IndexedDB-first:** one versioned app-state document is stored under the `ugc-net-jrf-tracker` database. If IndexedDB is unavailable, the app attempts a LocalStorage fallback. There is no cloud sync.
-- Stable concept IDs are seeded in `data.js`. Each concept stores syllabus metadata and the user's status, notes, confidence, quiz entry and study/revision dates. Plan days hold concept references plus separate plan-task records for PYQ, revision, practice, mock and consolidation work.
-- **Syllabus coverage** counts only mandatory concept records with status `completed`, divided by all mandatory concepts. `In progress`, `Needs revision`, PYQs, revisions, mock tests and day-status flags do not count as completed coverage. Optional supporting items are labeled and excluded from the denominator.
-- Unit completion is calculated from that unit's actual mandatory child-concept count, not by averaging unit percentages. A unit is not complete just because one child is complete.
-- Study days are counted separately from concepts and are complete only when the user explicitly sets their day status to `Completed`.
-- Revision records are generated separately from first-time syllabus tasks. Re-marking a concept completed does not generate a second automatic revision set. A revision completed as “still unclear” schedules one retry for the next day if no retry is already pending.
-- PYQ accuracy excludes unattempted questions and is shown only after at least 5 answered records in a paper/unit/topic grouping. Quiz accuracy is shown only after at least 5 quiz questions have been entered for that topic.
-- Focused hours include only stopped timer sessions. A running or paused timer is preserved, but it is not reported as completed study until stopped. Timers shorter than 30 seconds are discarded.
-- Mock totals use entered Paper 1 + Paper 2 scores when either is present; otherwise the tracker calculates from correct/incorrect counts using settings. The initial 2-marks/no-negative default reflects the recent official scheme available when built; verify the December 2026 NTA bulletin. No JRF qualification prediction is made.
+- **IndexedDB-first**: one versioned (schema 3) app-state document in the `ugc-net-jrf-tracker` database, with a LocalStorage fallback. No cloud sync.
+- New state: `topicRevised` (topic → date), `cardReviews` (card → box/due), `qStats` (question → attempts, correct, last result, flag), `dayPractice` (plan day → answered/correct), `quizHistory`, `activeQuiz`.
+- **Migration from earlier saves/backups** (schema 1 or 2): the 60-day plan is dropped, the 15-day plan is rebuilt in the new structure, and your day status, notes, date overrides, custom targets, custom tasks, sessions, concept progress, revisions, PYQs and mocks are kept.
+- Syllabus coverage, revision scheduling, PYQ accuracy thresholds, timer rules and mock totals are unchanged from the original tracker (see the app's Reports and Settings screens).
+- Accuracy by unit is shown after 8+ answered questions; weak topics need 4+ attempts.
 
 ## Syllabus sources and accuracy note
 
@@ -78,7 +86,10 @@ Some checklist wording expands official syllabus bullets into study-sized learni
 ## Main project files
 
 - `index.html`, `styles.css`, `app.js` — UI and interactions.
-- `data.js` — full syllabus structure, task seeds and 60-/15-day schedules.
+- `data.js` — syllabus structure and the 15-day plan definition.
+- `learn.js` — content loading, question picking, scoring, flashcard scheduling and day progress (pure logic).
+- `study-ui.js` — Today, 15-day plan, Revise, flashcard and Practice screens.
+- `content/` — generated notes, questions and diagrams; `tools/import-content.js` rebuilds it.
 - `core.js` — date, progress, revision, accuracy, backup validation and scheduling logic.
 - `db.js` — IndexedDB/LocalStorage persistence.
 - `manifest.webmanifest`, `sw.js`, `icons/` — install/offline PWA assets.
@@ -86,10 +97,11 @@ Some checklist wording expands official syllabus bullets into study-sized learni
 
 ## Tests and remaining limitations
 
-Run the automated logic/data checks with:
-
 ```bash
-node tests/core.test.js
+node tests/core.test.js     # plan structure, progress, dates, backups, v1/v2 -> v3 migration
+node tests/learn.test.js    # content-pack integrity, question picking, scoring, flashcards, day progress
 ```
 
-Also check syntax with `node --check app.js`, `node --check core.js`, and `node --check data.js`. The browser-facing app was served locally and checked with a temporary JSDOM harness across the main screens. The harness simulated an IndexedDB close/reopen and verified that a checked concept, its revision history, and both plan modes persisted. The built-in Node tests cover syllabus coverage, schedule structure/order, unique IDs, progress math, date overrides, revision generation, PYQ thresholds, JSON validation/migration and timer rollups. A physical Android install/offline round-trip, responsive visual inspection on a real narrow-screen browser, and service-worker cache behavior still require an HTTPS browser/device.
+Also run `node --check` on `app.js`, `core.js`, `data.js`, `learn.js`, `study-ui.js`. Before release the app was exercised in headless Chromium at phone size (plan, topic reader, flashcards, a full quiz with reload-and-resume, exam mode, reports) and offline via the service worker. A physical Android install/offline round-trip is still worth doing on your own device over HTTPS.
+
+Known limits: the question bank is AI-generated draft material (see above); questions are single-answer only; Paper 1 has no notes or question bank in this app; if you change the plan start date, "behind schedule" is judged against the new dates.

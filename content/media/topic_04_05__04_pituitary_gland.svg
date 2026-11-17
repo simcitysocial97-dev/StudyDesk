@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="520" height="180" viewBox="0 0 520 180" xmlns="http://www.w3.org/2000/svg">
+<style>
+  .label { font-family: Arial, sans-serif; font-size: 12px; fill: #333; text-anchor: middle; }
+  .title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #1a1a2e; text-anchor: middle; }
+  .axis { stroke: #333; stroke-width: 1.5; }
+  .curve { fill: none; stroke: #2c3e50; stroke-width: 2.5; }
+  .bar { fill: #3498db; stroke: #2980b9; stroke-width: 1; }
+  .arrow { fill: #2c3e50; stroke: #2c3e50; stroke-width: 2; marker-end: url(#arrowhead); }
+  .node { fill: #ecf0f1; stroke: #34495e; stroke-width: 1.5; }
+  .node-text { font-family: Arial, sans-serif; font-size: 11px; fill: #2c3e50; text-anchor: middle; }
+  .box { fill: #f8f9fa; stroke: #34495e; stroke-width: 1.5; }
+</style>
+<defs><marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/></marker></defs>
+<title>Unit 04: 04_pituitary_gland.svg</title>
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="400" y="30" class="title">Pituitary Gland</text><rect x="300" y="80" width="80" height="60" class="node" fill="#3498db" opacity="0.5"/><text x="340" y="110" class="label" font-size="10">Anterior</text><rect x="380" y="80" width="80" height="60" class="node" fill="#e74c3c" opacity="0.5"/><text x="420" y="110" class="label" font-size="10">Posterior</text>
+</svg>

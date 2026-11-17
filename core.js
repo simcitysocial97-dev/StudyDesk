@@ -3,7 +3,7 @@
   'use strict';
   const STATUS = ['not_started','in_progress','completed','needs_revision'];
   const REVISION_STATUS = ['scheduled','completed','skipped'];
-  const CURRENT_SCHEMA_VERSION = 2;
+  const CURRENT_SCHEMA_VERSION = 3;
   const TODAY = (d=new Date()) => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
   function parseDate(iso){
     if(!iso || !/^\d{4}-\d{2}-\d{2}$/.test(String(iso))) return null;
@@ -185,7 +185,6 @@
     if(!value||typeof value!=='object'||Array.isArray(value))return {ok:false,error:'Backup must be a JSON object.'};
     const version=Number(value.schemaVersion); if(!Number.isInteger(version)||version<1||version>CURRENT_SCHEMA_VERSION)return {ok:false,error:'Unsupported backup schema version.'};
     if(!value.settings||typeof value.settings!=='object'||!Array.isArray(value.concepts)||!value.plans||typeof value.plans!=='object')return {ok:false,error:'Backup is missing settings, concepts, or plans.'};
-    if(value.settings.activePlan!==undefined&&!['60','15'].includes(String(value.settings.activePlan)))return {ok:false,error:'Selected plan must be 60 or 15.'};
     const ids=new Set();
     for(const c of value.concepts){
       if(!c||typeof c.id!=='string'||!c.id||ids.has(c.id))return {ok:false,error:'Concept records need unique non-empty IDs.'};
@@ -194,9 +193,9 @@
       if(typeof c.title!=='string'||typeof c.unitId!=='string')return {ok:false,error:`Concept ${c.id} is missing its title or unit.`};
     }
     const taskIds=new Set();
-    for(const id of ['60','15']){
-      if(!Array.isArray(value.plans[id]))return {ok:false,error:`Backup is missing the ${id}-day plan.`};
-      const requiredLength=id==='60'?60:15;if(value.plans[id].length!==requiredLength)return {ok:false,error:`The ${id}-day plan must contain ${requiredLength} study days.`};
+    for(const id of ['15']){
+      if(!Array.isArray(value.plans[id]))return {ok:false,error:'Backup is missing the 15-day plan.'};
+      if(value.plans[id].length!==15)return {ok:false,error:'The 15-day plan must contain 15 study days.'};
       for(const d of value.plans[id]){
         if(!Array.isArray(d.conceptIds)||!Array.isArray(d.tasks))return {ok:false,error:`Study day ${d.day} is malformed.`};
         if(d.conceptIds.some(conceptId=>!ids.has(conceptId)))return {ok:false,error:`Study day ${d.day} references a missing concept.`};
@@ -209,24 +208,43 @@
   }
   function migrateV1ToV2(s){
     // Schema v2 records explicit default-vs-custom day targets and provenance labels.
-    s.settings ||= {};s.settings.revisionIntervals ||= [1,3,7,14];s.settings.theme ||= 'light';s.settings.activePlan ||= s.ui?.activePlan||'60';
+    s.settings ||= {};s.settings.revisionIntervals ||= [1,3,7,14];s.settings.theme ||= 'light';s.settings.activePlan ||= '15';
     s.concepts ||= [];s.concepts.forEach(c=>{c.sourceType ||= 'official-or-supporting';c.quizCorrect ??= '';c.quizTotal ??= '';c.revisionScheduleCreated ||= false;c.mandatory ??= true;});
-    s.plans ||= {};for(const id of ['60','15']){s.plans[id] ||= [];s.plans[id].forEach(d=>{d.targetCustomized ??= false;d.conceptIds ||= [];d.tasks ||= [];d.notes ||= '';d.status ||= 'planned';});}
-    s.revisions ||= [];s.sessions ||= [];s.pyqs ||= [];s.mockTests ||= [];s.notes ||= [];s.topicNotes ||= {};s.planNotes ||= {};s.dayDateOverrides ||= {};s.timer ||= {status:'stopped',startedAt:null,elapsedMs:0,paper:'Paper 2',category:'new-learning',unitId:'',planId:'60',day:1};
+    s.plans ||= {};for(const id of ['15']){s.plans[id] ||= [];s.plans[id].forEach(d=>{d.targetCustomized ??= false;d.conceptIds ||= [];d.tasks ||= [];d.notes ||= '';d.status ||= 'planned';});}
+    s.revisions ||= [];s.sessions ||= [];s.pyqs ||= [];s.mockTests ||= [];s.notes ||= [];s.topicNotes ||= {};s.planNotes ||= {};s.dayDateOverrides ||= {};s.timer ||= {status:'stopped',startedAt:null,elapsedMs:0,paper:'Paper 2',category:'new-learning',unitId:'',planId:'15',day:1};
     s.schemaVersion=2;return s;
   }
-  const MIGRATIONS={1:migrateV1ToV2};
+  // v3: the 60-day plan is removed; the 15-day plan becomes revision + practice (topics, flashcards, question bank).
+  function migrateV2ToV3(s){
+    const D=root.StudyData||(typeof require!=='undefined'?require('./data.js'):null);
+    const old=Array.isArray(s.plans?.['15'])?s.plans['15']:[];
+    const fresh=D?D.build15DayPlan(s.concepts||[]):old;
+    const generated=/^task-15-\d+-paper-2-p2-u\d\d-(revise|practice)/;
+    s.plans={'15':fresh.map((f,i)=>{
+      const o=old[i]||{};
+      return {...f,dateOverride:o.dateOverride||'',targetCustomized:!!o.targetCustomized,targetMinutes:o.targetCustomized?Number(o.targetMinutes)||0:f.targetMinutes,status:o.status||'planned',isRest:!!o.isRest,notes:o.notes||'',tasks:(o.tasks||[]).filter(t=>t&&!generated.test(String(t.id)))};
+    })};
+    s.settings.activePlan='15';s.ui={...(s.ui||{}),activePlan:'15'};
+    if(s.settings.paper1TargetMinutes===50&&s.settings.paper2TargetMinutes===160){s.settings.paper1TargetMinutes=0;s.settings.paper2TargetMinutes=Number(s.settings.dailyTargetMinutes)||210;}
+    s.dayDateOverrides=Object.fromEntries(Object.entries(s.dayDateOverrides||{}).filter(([k])=>k.startsWith('15-')));
+    s.timer={...(s.timer||{}),planId:'15',day:Math.max(1,Math.min(15,Number(s.timer?.day)||1))};
+    (s.sessions||[]).forEach(x=>{if(x.planId==='60'){x.planId='15';x.day=Math.min(15,Number(x.day)||1);}});
+    delete s.practiceQueues;
+    s.cardReviews ||= {};s.qStats ||= {};s.topicRevised ||= {};s.quizHistory ||= [];s.dayPractice ||= {};s.activeQuiz ??= null;
+    s.schemaVersion=3;return s;
+  }
+  const MIGRATIONS={1:migrateV1ToV2,2:migrateV2ToV3};
   function hydrateImported(value){
     const check=validateBackup(value);if(!check.ok)throw new Error(check.error);
     let cloned=JSON.parse(JSON.stringify(value));let version=Number(cloned.schemaVersion);
     while(version<CURRENT_SCHEMA_VERSION){const migrate=MIGRATIONS[version];if(!migrate)throw new Error(`No migration path from schema ${version}.`);cloned=migrate(cloned);version=Number(cloned.schemaVersion);}
     cloned.schemaVersion=CURRENT_SCHEMA_VERSION;
-    cloned.revisions ||= [];cloned.sessions ||= [];cloned.pyqs ||= [];cloned.mockTests ||= [];cloned.notes ||= [];cloned.unitNotes ||= {};cloned.topicNotes ||= {};cloned.planNotes ||= {};cloned.dayDateOverrides ||= {};cloned.ui ||= {activePlan:cloned.settings.activePlan||'60'};
-    cloned.settings.revisionIntervals ||= [1,3,7,14];cloned.settings.theme ||= 'light';cloned.settings.activePlan ||= '60';if(!['60','15'].includes(String(cloned.settings.activePlan)))cloned.settings.activePlan='60';
-    cloned.timer ||= {status:'stopped',startedAt:null,elapsedMs:0,paper:'Paper 2',category:'new-learning',unitId:'',planId:'60',day:1};
+    cloned.revisions ||= [];cloned.sessions ||= [];cloned.pyqs ||= [];cloned.mockTests ||= [];cloned.notes ||= [];cloned.unitNotes ||= {};cloned.topicNotes ||= {};cloned.planNotes ||= {};cloned.dayDateOverrides ||= {};cloned.ui ||= {activePlan:'15'};cloned.cardReviews ||= {};cloned.qStats ||= {};cloned.topicRevised ||= {};cloned.quizHistory ||= [];cloned.dayPractice ||= {};cloned.activeQuiz ??= null;
+    cloned.settings.revisionIntervals ||= [1,3,7,14];cloned.settings.theme ||= 'light';cloned.settings.activePlan='15';cloned.ui.activePlan='15';
+    cloned.timer ||= {status:'stopped',startedAt:null,elapsedMs:0,paper:'Paper 2',category:'revision',unitId:'',planId:'15',day:1};
     return cloned;
   }
-  const api={STATUS,REVISION_STATUS,CURRENT_SCHEMA_VERSION,TODAY,parseDate,addDays,daysBetween,formatDate,planDay,planDate,currentDayNumber,dayForDate,getConcept,mandatoryConcepts,completion,completionByUnit,overallCompletion,dayProgress,planSummary,scheduledConceptsForDay,taskIsOverdue,getOverduePlanItems,minutesForDay,totalStudyMinutes,dailyMinutes,streakDays,createRevisionSchedule,updateNextRevisionDate,setConceptStatus,dueRevisionBuckets,completeRevision,scheduleOneOffRevision,quizWeakTopics,pyqStats,markMockScore,mockAccuracy,moveConceptInPlan,movePlanTask,validateBackup,hydrateImported};
+  const api={migrateV2ToV3,STATUS,REVISION_STATUS,CURRENT_SCHEMA_VERSION,TODAY,parseDate,addDays,daysBetween,formatDate,planDay,planDate,currentDayNumber,dayForDate,getConcept,mandatoryConcepts,completion,completionByUnit,overallCompletion,dayProgress,planSummary,scheduledConceptsForDay,taskIsOverdue,getOverduePlanItems,minutesForDay,totalStudyMinutes,dailyMinutes,streakDays,createRevisionSchedule,updateNextRevisionDate,setConceptStatus,dueRevisionBuckets,completeRevision,scheduleOneOffRevision,quizWeakTopics,pyqStats,markMockScore,mockAccuracy,moveConceptInPlan,movePlanTask,validateBackup,hydrateImported};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;
   root.StudyCore=api;
 })(typeof window!=='undefined'?window:globalThis);

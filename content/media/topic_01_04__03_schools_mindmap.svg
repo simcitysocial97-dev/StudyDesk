@@ -1,0 +1,45 @@
+<svg width="860" height="860" viewBox="0 0 860 860" xmlns="http://www.w3.org/2000/svg" title="Diagram">
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><polygon points="0,0 8,3.5 0,7" fill="#9CA3AF"/></marker></defs>
+<line x1="420" y1="220" x2="420" y2="300" stroke="#595959" stroke-width="1"/>
+<line x1="356.5093722576098" y1="245.26110427408798" x2="208.02567258113237" y2="142.63333919363888" stroke="#7C3AED" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="65" y="100" width="150" height="60" rx="8" ry="4" fill="#FFFFFF" stroke="#7C3AED" stroke-width="2"/>
+<text x="140" y="124" font-family="Calibri" font-size="12" fill="#7C3AED" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="140" dy="0">Structuralism</tspan></text>
+<text x="140" y="138" font-family="Calibri" font-size="9" fill="#222222" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="140" dy="0">Titchener</tspan></text>
+<text x="140" y="152" font-family="Calibri" font-size="8.5" fill="#595959" text-anchor="middle" dominant-baseline="middle"><tspan x="140" dy="0">Structure</tspan><tspan x="140" dy="10.2">consciousness</tspan></text>
+<line x1="352.6933236651424" y1="269.61523947640825" x2="212.11429607306172" y2="348.2416338369213" stroke="#0891B2" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="65" y="310" width="150" height="60" rx="8" ry="4" fill="#FFFFFF" stroke="#0891B2" stroke-width="2"/>
+<text x="140" y="334" font-family="Calibri" font-size="12" fill="#0891B2" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="140" dy="0">Functionalism</tspan></text>
+<text x="140" y="348" font-family="Calibri" font-size="9" fill="#222222" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="140" dy="0">James</tspan></text>
+<text x="140" y="362" font-family="Calibri" font-size="8.5" fill="#595959" text-anchor="middle" dominant-baseline="middle"><tspan x="140" dy="0">Function /</tspan><tspan x="140" dy="10.2">adaptation</tspan></text>
+<line x1="371.3783840410303" y1="285.1790511216093" x2="192.09458852746755" y2="571.5820438185223" stroke="#BE185D" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="65" y="520" width="150" height="60" rx="8" ry="4" fill="#FFFFFF" stroke="#BE185D" stroke-width="2"/>
+<text x="140" y="544" font-family="Calibri" font-size="12" fill="#BE185D" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="140" dy="0">Behaviourism</tspan></text>
+<text x="140" y="558" font-family="Calibri" font-size="9" fill="#222222" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="140" dy="0">Watson</tspan></text>
+<text x="140" y="572" font-family="Calibri" font-size="8.5" fill="#595959" text-anchor="middle" dominant-baseline="middle"><tspan x="140" dy="0">Observable</tspan><tspan x="140" dy="10.2">behaviour</tspan></text>
+<line x1="385.797764174771" y1="290.5377105582402" x2="176.64525266988824" y2="786.1751804784916" stroke="#92400E" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="65" y="730" width="150" height="60" rx="8" ry="4" fill="#FFFFFF" stroke="#92400E" stroke-width="2"/>
+<text x="140" y="754" font-family="Calibri" font-size="12" fill="#92400E" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="140" dy="0">Psychoanalysis</tspan></text>
+<text x="140" y="768" font-family="Calibri" font-size="9" fill="#222222" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="140" dy="0">Freud</tspan></text>
+<text x="140" y="782" font-family="Calibri" font-size="8.5" fill="#595959" text-anchor="middle" dominant-baseline="middle"><tspan x="140" dy="0">Unconscious</tspan><tspan x="140" dy="10.2">mind</tspan></text>
+<line x1="483.4906277423902" y1="245.26110427408798" x2="768.0256725811323" y2="142.63333919363888" stroke="#047857" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="625" y="100" width="150" height="60" rx="8" ry="4" fill="#FFFFFF" stroke="#047857" stroke-width="2"/>
+<text x="700" y="124" font-family="Calibri" font-size="12" fill="#047857" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="700" dy="0">Gestalt</tspan></text>
+<text x="700" y="138" font-family="Calibri" font-size="9" fill="#222222" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="700" dy="0">Wertheimer, Köhler,</tspan><tspan x="700" dy="10.799999999999999">Koffka</tspan></text>
+<text x="700" y="152" font-family="Calibri" font-size="8.5" fill="#595959" text-anchor="middle" dominant-baseline="middle"><tspan x="700" dy="0">Perception as</tspan><tspan x="700" dy="10.2">whole</tspan></text>
+<line x1="487.3066763348576" y1="269.61523947640825" x2="772.1142960730617" y2="348.2416338369213" stroke="#059669" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="625" y="310" width="150" height="60" rx="8" ry="4" fill="#FFFFFF" stroke="#059669" stroke-width="2"/>
+<text x="700" y="334" font-family="Calibri" font-size="12" fill="#059669" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="700" dy="0">Humanistic</tspan></text>
+<text x="700" y="348" font-family="Calibri" font-size="9" fill="#222222" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="700" dy="0">Maslow, Rogers</tspan></text>
+<text x="700" y="362" font-family="Calibri" font-size="8.5" fill="#595959" text-anchor="middle" dominant-baseline="middle"><tspan x="700" dy="0">Self-actualisation,</tspan><tspan x="700" dy="10.2">free will</tspan></text>
+<line x1="468.6216159589697" y1="285.1790511216093" x2="752.0945885274675" y2="571.5820438185223" stroke="#7C3AED" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="625" y="520" width="150" height="60" rx="8" ry="4" fill="#FFFFFF" stroke="#7C3AED" stroke-width="2"/>
+<text x="700" y="544" font-family="Calibri" font-size="12" fill="#7C3AED" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="700" dy="0">Cognitive</tspan></text>
+<text x="700" y="558" font-family="Calibri" font-size="9" fill="#222222" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="700" dy="0">Neisser</tspan></text>
+<text x="700" y="572" font-family="Calibri" font-size="8.5" fill="#595959" text-anchor="middle" dominant-baseline="middle"><tspan x="700" dy="0">Mental</tspan><tspan x="700" dy="10.2">processes</tspan></text>
+<line x1="454.202235825229" y1="290.5377105582402" x2="736.6452526698882" y2="786.1751804784916" stroke="#9D174D" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="625" y="730" width="150" height="60" rx="8" ry="4" fill="#FFFFFF" stroke="#9D174D" stroke-width="2"/>
+<text x="700" y="754" font-family="Calibri" font-size="12" fill="#9D174D" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="700" dy="0">Existential</tspan></text>
+<text x="700" y="768" font-family="Calibri" font-size="9" fill="#222222" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="700" dy="0">May, Frankl</tspan></text>
+<text x="700" y="782" font-family="Calibri" font-size="8.5" fill="#595959" text-anchor="middle" dominant-baseline="middle"><tspan x="700" dy="0">Existence,</tspan><tspan x="700" dy="10.2">meaning</tspan></text>
+<text x="420" y="150" font-family="Calibri" font-size="16" fill="#1F3A5F" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="420" dy="0">Schools of Psychology</tspan></text>
+</svg>

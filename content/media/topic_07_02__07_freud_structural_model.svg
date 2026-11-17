@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:svg xmlns:ns0="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <ns0:rect x="100" y="60" width="400" height="60" fill="#94a3b8" stroke="#475569" stroke-width="2" />
+  <ns0:text x="300" y="40" font-size="14" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Conscious</ns0:text>
+  <ns0:polygon points="150,120 450,120 300,340" fill="#f8fafc" stroke="#475569" stroke-width="2" />
+  <ns0:text x="300" y="140" font-size="14" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Preconscious / Unconscious</ns0:text>
+  <ns0:circle cx="220" cy="200" r="35" fill="#fca5a5" stroke="#475569" stroke-width="2" />
+  <ns0:text x="220" y="205" font-size="14" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">id</ns0:text>
+  <ns0:circle cx="300" cy="200" r="35" fill="#a5f3fc" stroke="#475569" stroke-width="2" />
+  <ns0:text x="300" y="205" font-size="14" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">ego</ns0:text>
+  <ns0:circle cx="380" cy="200" r="35" fill="#86efac" stroke="#475569" stroke-width="2" />
+  <ns0:text x="380" y="205" font-size="12" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">superego</ns0:text>
+  <ns0:line x1="250" y1="200" x2="275" y2="200" stroke="#475569" stroke-width="2" />
+  <ns0:line x1="335" y1="200" x2="365" y2="200" stroke="#475569" stroke-width="2" />
+</ns0:svg>

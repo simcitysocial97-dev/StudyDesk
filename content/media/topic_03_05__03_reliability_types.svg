@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="260" viewBox="0 0 900 260" xmlns="http://www.w3.org/2000/svg">
+<style>
+  .label { font-family: Arial, sans-serif; font-size: 12px; fill: #333; text-anchor: middle; }
+  .title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #1a1a2e; text-anchor: middle; }
+  .axis { stroke: #333; stroke-width: 1.5; }
+  .curve { fill: none; stroke: #2c3e50; stroke-width: 2.5; }
+  .bar { fill: #3498db; stroke: #2980b9; stroke-width: 1; }
+  .arrow { fill: #2c3e50; stroke: #2c3e50; stroke-width: 2; marker-end: url(#arrowhead); }
+  .node { fill: #ecf0f1; stroke: #34495e; stroke-width: 1.5; }
+  .node-text { font-family: Arial, sans-serif; font-size: 11px; fill: #2c3e50; text-anchor: middle; }
+  .box { fill: #f8f9fa; stroke: #34495e; stroke-width: 1.5; }
+</style>
+<defs><marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/></marker></defs>
+<title>Unit 03 Visual</title>
+<rect width="100%" height="100%" fill="#ffffff"/>
+
+<text x="400" y="30" class="title">Types of Reliability</text>
+<rect x="50" y="80" width="160" height="60" class="node"/>
+<text x="130" y="110" class="node-text">Test-Retest</text>
+<text x="130" y="126" class="label" font-size="9">Stability over time</text>
+<rect x="270" y="80" width="160" height="60" class="node"/>
+<text x="350" y="110" class="node-text">Alternate Form</text>
+<text x="350" y="126" class="label" font-size="9">Equivalence of forms</text>
+<rect x="490" y="80" width="160" height="60" class="node"/>
+<text x="570" y="110" class="node-text">Inter-Rater</text>
+<text x="570" y="126" class="label" font-size="9">Rater agreement</text>
+<rect x="270" y="180" width="160" height="60" class="node"/>
+<text x="350" y="210" class="node-text">Internal Consistency</text>
+<text x="350" y="226" class="label" font-size="9">Cronbach's alpha</text>
+<line x1="210" y1="110" x2="260" y2="110" class="arrow"/>
+<line x1="430" y1="110" x2="480" y2="110" class="arrow"/>
+<line x1="350" y1="140" x2="350" y2="180" class="arrow"/>
+
+</svg>

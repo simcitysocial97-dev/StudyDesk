@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1000" height="400" viewBox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg">
+<style>
+  .label { font-family: Arial, sans-serif; font-size: 12px; fill: #333; text-anchor: middle; }
+  .title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #1a1a2e; text-anchor: middle; }
+  .axis { stroke: #333; stroke-width: 1.5; }
+  .curve { fill: none; stroke: #2c3e50; stroke-width: 2.5; }
+  .bar { fill: #3498db; stroke: #2980b9; stroke-width: 1; }
+  .bar2 { fill: #e74c3c; stroke: #c0392b; stroke-width: 1; }
+  .arrow { fill: #2c3e50; stroke: #2c3e50; stroke-width: 2; marker-end: url(#arrowhead); }
+  .node { fill: #ecf0f1; stroke: #34495e; stroke-width: 1.5; }
+  .node-text { font-family: Arial, sans-serif; font-size: 11px; fill: #2c3e50; text-anchor: middle; }
+  .box { fill: #f8f9fa; stroke: #34495e; stroke-width: 1.5; }
+</style>
+<defs><marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/></marker></defs>
+<title>Unit 02 Visual</title>
+<rect width="100%" height="100%" fill="#ffffff"/>
+
+<text x="400" y="30" class="title">Sampling Techniques Decision Tree</text>
+<!-- Root -->
+<rect x="320" y="60" width="160" height="50" class="node"/>
+<text x="400" y="88" class="node-text">Population</text>
+<text x="400" y="102" class="node-text">→ Sample</text>
+<!-- Arrow down -->
+<line x1="400" y1="110" x2="400" y2="150" class="arrow"/>
+<!-- Probability branch -->
+<rect x="100" y="160" width="180" height="50" class="node"/>
+<text x="190" y="188" class="node-text">Probability</text>
+<text x="190" y="202" class="node-text">Sampling</text>
+<line x1="300" y1="130" x2="190" y2="180" class="arrow"/>
+<!-- Non-probability branch -->
+<rect x="620" y="160" width="180" height="50" class="node"/>
+<text x="710" y="188" class="node-text">Non-Probability</text>
+<text x="710" y="202" class="node-text">Sampling</text>
+<line x1="500" y1="130" x2="710" y2="180" class="arrow"/>
+<!-- Probability subtypes -->
+<rect x="50" y="270" width="100" height="40" class="node"/><text x="100" y="292" class="node-text">Simple Random</text>
+<rect x="170" y="270" width="100" height="40" class="node"/><text x="220" y="292" class="node-text">Stratified</text>
+<rect x="290" y="270" width="100" height="40" class="node"/><text x="340" y="292" class="node-text">Cluster</text>
+<rect x="410" y="270" width="100" height="40" class="node"/><text x="460" y="292" class="node-text">Systematic</text>
+<line x1="190" y1="210" x2="100" y2="280" class="arrow"/><line x1="220" y1="210" x2="220" y2="280" class="arrow"/><line x1="240" y1="210" x2="340" y2="280" class="arrow"/><line x1="260" y1="210" x2="460" y2="280" class="arrow"/>
+<!-- Non-probability subtypes -->
+<rect x="600" y="270" width="100" height="40" class="node"/><text x="650" y="292" class="node-text">Convenience</text>
+<rect x="720" y="270" width="100" height="40" class="node"/><text x="770" y="292" class="node-text">Purposive</text>
+<line x1="710" y1="210" x2="650" y2="280" class="arrow"/><line x1="710" y1="210" x2="770" y2="280" class="arrow"/>
+
+</svg>

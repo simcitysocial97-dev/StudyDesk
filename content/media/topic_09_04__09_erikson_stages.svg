@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:svg xmlns:ns0="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <ns0:rect x="50" y="120" width="135" height="80" fill="#f1f5f9" stroke="#475569" stroke-width="2" rx="6" />
+  <ns0:text x="117" y="140" font-size="9" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Trust vs Mistrust (0-1)</ns0:text>
+  <ns0:text x="117" y="175" font-size="9" fill="#1e293b" text-anchor="middle" font-family="Arial, sans-serif">Psychosocial crisis</ns0:text>
+  <ns0:rect x="195" y="120" width="135" height="80" fill="#f1f5f9" stroke="#475569" stroke-width="2" rx="6" />
+  <ns0:text x="262" y="140" font-size="9" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Autonomy vs Shame (1-3)</ns0:text>
+  <ns0:text x="262" y="175" font-size="9" fill="#1e293b" text-anchor="middle" font-family="Arial, sans-serif">Psychosocial crisis</ns0:text>
+  <ns0:rect x="340" y="120" width="135" height="80" fill="#f1f5f9" stroke="#475569" stroke-width="2" rx="6" />
+  <ns0:text x="407" y="140" font-size="9" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Initiative vs Guilt (3-6)</ns0:text>
+  <ns0:text x="407" y="175" font-size="9" fill="#1e293b" text-anchor="middle" font-family="Arial, sans-serif">Psychosocial crisis</ns0:text>
+  <ns0:rect x="485" y="120" width="135" height="80" fill="#f1f5f9" stroke="#475569" stroke-width="2" rx="6" />
+  <ns0:text x="552" y="140" font-size="9" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Industry vs Inferiority (6-12)</ns0:text>
+  <ns0:text x="552" y="175" font-size="9" fill="#1e293b" text-anchor="middle" font-family="Arial, sans-serif">Psychosocial crisis</ns0:text>
+  <ns0:rect x="50" y="220" width="135" height="80" fill="#f1f5f9" stroke="#475569" stroke-width="2" rx="6" />
+  <ns0:text x="117" y="240" font-size="9" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Identity vs Role Confusion (12-18)</ns0:text>
+  <ns0:text x="117" y="275" font-size="9" fill="#1e293b" text-anchor="middle" font-family="Arial, sans-serif">Psychosocial crisis</ns0:text>
+  <ns0:rect x="195" y="220" width="135" height="80" fill="#f1f5f9" stroke="#475569" stroke-width="2" rx="6" />
+  <ns0:text x="262" y="240" font-size="9" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Intimacy vs Isolation (18-40)</ns0:text>
+  <ns0:text x="262" y="275" font-size="9" fill="#1e293b" text-anchor="middle" font-family="Arial, sans-serif">Psychosocial crisis</ns0:text>
+  <ns0:rect x="340" y="220" width="135" height="80" fill="#f1f5f9" stroke="#475569" stroke-width="2" rx="6" />
+  <ns0:text x="407" y="240" font-size="9" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Generativity vs Stagnation (40-65)</ns0:text>
+  <ns0:text x="407" y="275" font-size="9" fill="#1e293b" text-anchor="middle" font-family="Arial, sans-serif">Psychosocial crisis</ns0:text>
+  <ns0:rect x="485" y="220" width="135" height="80" fill="#f1f5f9" stroke="#475569" stroke-width="2" rx="6" />
+  <ns0:text x="552" y="240" font-size="9" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Integrity vs Despair (65+)</ns0:text>
+  <ns0:text x="552" y="275" font-size="9" fill="#1e293b" text-anchor="middle" font-family="Arial, sans-serif">Psychosocial crisis</ns0:text>
+  <ns0:text x="300" y="40" font-size="16" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Erikson's Eight Stages of Psychosocial Development</ns0:text>
+</ns0:svg>

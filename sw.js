@@ -1,8 +1,9 @@
-/* Offline shell cache. Existing clients must explicitly accept a waiting update. */
+/* Offline cache. The app shell and content index are precached; notes, questions and diagrams under ./content/ are cached the
+ * first time they are opened (or all at once via Revise > Save for offline). Existing clients must accept a waiting update. */
 const CACHE_PREFIX = 'studydesk-shell-';
-const CACHE_NAME = `${CACHE_PREFIX}v1.0.0`;
+const CACHE_NAME = `${CACHE_PREFIX}v2.0.0`;
 const SHELL = [
-  './', './index.html', './styles.css', './data.js', './core.js', './db.js', './app.js',
+  './', './index.html', './styles.css', './data.js', './core.js', './db.js', './learn.js', './study-ui.js', './app.js', './content/index.json',
   './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png',
   './icons/icon-maskable-192.png', './icons/icon-maskable-512.png'
 ];

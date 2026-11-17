@@ -1,0 +1,44 @@
+<svg width="840" height="520" viewBox="0 0 840 520" xmlns="http://www.w3.org/2000/svg" title="Diagram">
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><polygon points="0,0 8,3.5 0,7" fill="#9CA3AF"/></marker></defs>
+<rect x="40" y="80" width="170" height="70" rx="8" ry="4" fill="#FFFFFF" stroke="#7C3AED" stroke-width="2"/>
+<rect x="40" y="80" width="30" height="30" rx="6" ry="4" fill="#7C3AED" stroke="none"/>
+<text x="55" y="95" font-family="Calibri" font-size="11" fill="#FFFFFF" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="55" dy="0">1879</tspan></text>
+<text x="80" y="92" font-family="Calibri" font-size="10" fill="#1F3A5F" font-weight="bold" text-anchor="start" dominant-baseline="middle"><tspan x="80" dy="0">Wundt — first lab, Leipzig</tspan></text>
+<text x="80" y="108" font-family="Calibri" font-size="9" fill="#595959" text-anchor="start" dominant-baseline="middle"><tspan x="80" dy="0">Birth of psychology</tspan></text>
+<rect x="230" y="80" width="170" height="70" rx="8" ry="4" fill="#FFFFFF" stroke="#0891B2" stroke-width="2"/>
+<rect x="230" y="80" width="30" height="30" rx="6" ry="4" fill="#0891B2" stroke="none"/>
+<text x="245" y="95" font-family="Calibri" font-size="11" fill="#FFFFFF" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="245" dy="0">1890</tspan></text>
+<text x="270" y="92" font-family="Calibri" font-size="10" fill="#1F3A5F" font-weight="bold" text-anchor="start" dominant-baseline="middle"><tspan x="270" dy="0">James — Principles of Psychology</tspan></text>
+<text x="270" y="108" font-family="Calibri" font-size="9" fill="#595959" text-anchor="start" dominant-baseline="middle"><tspan x="270" dy="0">Functionalism</tspan></text>
+<rect x="420" y="80" width="170" height="70" rx="8" ry="4" fill="#FFFFFF" stroke="#92400E" stroke-width="2"/>
+<rect x="420" y="80" width="30" height="30" rx="6" ry="4" fill="#92400E" stroke="none"/>
+<text x="435" y="95" font-family="Calibri" font-size="11" fill="#FFFFFF" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="435" dy="0">1900</tspan></text>
+<text x="460" y="92" font-family="Calibri" font-size="10" fill="#1F3A5F" font-weight="bold" text-anchor="start" dominant-baseline="middle"><tspan x="460" dy="0">Freud — Interpretation of Dreams</tspan></text>
+<text x="460" y="108" font-family="Calibri" font-size="9" fill="#595959" text-anchor="start" dominant-baseline="middle"><tspan x="460" dy="0">Psychoanalysis</tspan></text>
+<rect x="610" y="80" width="170" height="70" rx="8" ry="4" fill="#FFFFFF" stroke="#047857" stroke-width="2"/>
+<rect x="610" y="80" width="30" height="30" rx="6" ry="4" fill="#047857" stroke="none"/>
+<text x="625" y="95" font-family="Calibri" font-size="11" fill="#FFFFFF" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="625" dy="0">1912</tspan></text>
+<text x="650" y="92" font-family="Calibri" font-size="10" fill="#1F3A5F" font-weight="bold" text-anchor="start" dominant-baseline="middle"><tspan x="650" dy="0">Gestalt psychology emerges</tspan></text>
+<text x="650" y="108" font-family="Calibri" font-size="9" fill="#595959" text-anchor="start" dominant-baseline="middle"><tspan x="650" dy="0">Perception as whole</tspan></text>
+<rect x="40" y="170" width="170" height="70" rx="8" ry="4" fill="#FFFFFF" stroke="#BE185D" stroke-width="2"/>
+<rect x="40" y="170" width="30" height="30" rx="6" ry="4" fill="#BE185D" stroke="none"/>
+<text x="55" y="185" font-family="Calibri" font-size="11" fill="#FFFFFF" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="55" dy="0">1913</tspan></text>
+<text x="80" y="182" font-family="Calibri" font-size="10" fill="#1F3A5F" font-weight="bold" text-anchor="start" dominant-baseline="middle"><tspan x="80" dy="0">Watson — behaviourist manifesto</tspan></text>
+<text x="80" y="198" font-family="Calibri" font-size="9" fill="#595959" text-anchor="start" dominant-baseline="middle"><tspan x="80" dy="0">Observable behaviour</tspan></text>
+<rect x="230" y="170" width="170" height="70" rx="8" ry="4" fill="#FFFFFF" stroke="#059669" stroke-width="2"/>
+<rect x="230" y="170" width="30" height="30" rx="6" ry="4" fill="#059669" stroke="none"/>
+<text x="245" y="185" font-family="Calibri" font-size="11" fill="#FFFFFF" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="245" dy="0">1916</tspan></text>
+<text x="270" y="182" font-family="Calibri" font-size="10" fill="#1F3A5F" font-weight="bold" text-anchor="start" dominant-baseline="middle"><tspan x="270" dy="0">Calcutta — first dept (Sen Gupta)</tspan></text>
+<text x="270" y="198" font-family="Calibri" font-size="9" fill="#595959" text-anchor="start" dominant-baseline="middle"><tspan x="270" dy="0">Psychology in India</tspan></text>
+<rect x="420" y="170" width="170" height="70" rx="8" ry="4" fill="#FFFFFF" stroke="#9D174D" stroke-width="2"/>
+<rect x="420" y="170" width="30" height="30" rx="6" ry="4" fill="#9D174D" stroke="none"/>
+<text x="435" y="185" font-family="Calibri" font-size="11" fill="#FFFFFF" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="435" dy="0">1924</tspan></text>
+<text x="460" y="182" font-family="Calibri" font-size="10" fill="#1F3A5F" font-weight="bold" text-anchor="start" dominant-baseline="middle"><tspan x="460" dy="0">Mysore University dept</tspan></text>
+<text x="460" y="198" font-family="Calibri" font-size="9" fill="#595959" text-anchor="start" dominant-baseline="middle"><tspan x="460" dy="0">Expansion in India</tspan></text>
+<rect x="610" y="170" width="170" height="70" rx="8" ry="4" fill="#FFFFFF" stroke="#7C3AED" stroke-width="2"/>
+<rect x="610" y="170" width="30" height="30" rx="6" ry="4" fill="#7C3AED" stroke="none"/>
+<text x="625" y="185" font-family="Calibri" font-size="11" fill="#FFFFFF" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="625" dy="0">1956</tspan></text>
+<text x="650" y="182" font-family="Calibri" font-size="10" fill="#1F3A5F" font-weight="bold" text-anchor="start" dominant-baseline="middle"><tspan x="650" dy="0">Neisser — cognitive approach</tspan></text>
+<text x="650" y="198" font-family="Calibri" font-size="9" fill="#595959" text-anchor="start" dominant-baseline="middle"><tspan x="650" dy="0">Cognitive revolution</tspan></text>
+<text x="420" y="450" font-family="Calibri" font-size="9" fill="#595959" text-anchor="middle" dominant-baseline="middle"><tspan x="420" dy="0">Peg mnemonics: 1879=bun·gate·heaven·wine · 1890=bun·gate·wine·hen · 1900=bun·wine·hen·hen · 1912=bun·wine·bun·shoe · 1913=bun·wine·bun·tree · 1916=bun·wine·bun·sticks · 1924=bun·wine·shoe·door · 1956=bun·wine·hive·sticks</tspan></text>
+</svg>

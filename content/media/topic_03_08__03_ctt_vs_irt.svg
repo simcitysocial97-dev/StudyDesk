@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="220" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg">
+<style>
+  .label { font-family: Arial, sans-serif; font-size: 12px; fill: #333; text-anchor: middle; }
+  .title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #1a1a2e; text-anchor: middle; }
+  .axis { stroke: #333; stroke-width: 1.5; }
+  .curve { fill: none; stroke: #2c3e50; stroke-width: 2.5; }
+  .bar { fill: #3498db; stroke: #2980b9; stroke-width: 1; }
+  .arrow { fill: #2c3e50; stroke: #2c3e50; stroke-width: 2; marker-end: url(#arrowhead); }
+  .node { fill: #ecf0f1; stroke: #34495e; stroke-width: 1.5; }
+  .node-text { font-family: Arial, sans-serif; font-size: 11px; fill: #2c3e50; text-anchor: middle; }
+  .box { fill: #f8f9fa; stroke: #34495e; stroke-width: 1.5; }
+</style>
+<defs><marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/></marker></defs>
+<title>Unit 03 Visual</title>
+<rect width="100%" height="100%" fill="#ffffff"/>
+
+<text x="400" y="30" class="title">CTT vs IRT</text>
+<rect x="50" y="70" width="300" height="140" class="box"/>
+<text x="200" y="95" class="label">Classical Test Theory</text>
+<text x="80" y="120" class="label" font-size="10">• Test-level model</text>
+<text x="80" y="135" class="label" font-size="10">• Sample-dependent parameters</text>
+<text x="80" y="150" class="label" font-size="10">• Total score scoring</text>
+<rect x="400" y="70" width="300" height="140" class="box"/>
+<text x="550" y="95" class="label">Item Response Theory</text>
+<text x="430" y="120" class="label" font-size="10">• Item-level model</text>
+<text x="430" y="135" class="label" font-size="10">• Sample-invariant parameters</text>
+<text x="430" y="150" class="label" font-size="10">• Theta scoring</text>
+<line x1="350" y1="140" x2="400" y2="140" class="arrow"/>
+<text x="365" y="125" class="label" font-size="10">IRT advantages</text>
+
+</svg>

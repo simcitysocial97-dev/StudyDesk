@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1000" height="450" viewBox="0 0 1000 450" xmlns="http://www.w3.org/2000/svg">
+<style>
+  .label { font-family: Arial, sans-serif; font-size: 12px; fill: #333; text-anchor: middle; }
+  .title { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #1a1a2e; text-anchor: middle; }
+  .axis { stroke: #333; stroke-width: 1.5; }
+  .curve { fill: none; stroke: #2c3e50; stroke-width: 2.5; }
+  .bar { fill: #3498db; stroke: #2980b9; stroke-width: 1; }
+  .bar2 { fill: #e74c3c; stroke: #c0392b; stroke-width: 1; }
+  .arrow { fill: #2c3e50; stroke: #2c3e50; stroke-width: 2; marker-end: url(#arrowhead); }
+  .node { fill: #ecf0f1; stroke: #34495e; stroke-width: 1.5; }
+  .node-text { font-family: Arial, sans-serif; font-size: 11px; fill: #2c3e50; text-anchor: middle; }
+  .box { fill: #f8f9fa; stroke: #34495e; stroke-width: 1.5; }
+</style>
+<defs><marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/></marker></defs>
+<title>Unit 02 Visual</title>
+<rect width="100%" height="100%" fill="#ffffff"/>
+
+<text x="400" y="25" class="title">Skewness: Mean vs Median vs Mode</text>
+<!-- Positive skew -->
+<path d="M 50 280 Q 120 280 180 200 Q 250 150 320 280" class="curve"/>
+<line x1="300" y1="280" x2="300" y2="320" class="arrow"/>
+<text x="310" y="335" class="label">Mean &gt; Median &gt; Mode</text>
+<text x="180" y="350" class="label">Positively Skewed</text>
+<text x="180" y="130" class="label" font-size="10">Tail →</text>
+<!-- Symmetrical -->
+<path d="M 430 280 Q 480 200 530 150 Q 580 200 630 280" class="curve"/>
+<line x1="530" y1="280" x2="530" y2="320" class="arrow"/>
+<text x="530" y="335" class="label">Mean = Median = Mode</text>
+<text x="530" y="350" class="label">Symmetrical</text>
+<!-- Negative skew -->
+<path d="M 700 280 Q 770 150 840 200 Q 910 280 980 280" class="curve"/>
+<line x1="760" y1="280" x2="760" y2="320" class="arrow"/>
+<text x="760" y="335" class="label">Mean &lt; Median &lt; Mode</text>
+<text x="870" y="350" class="label">Negatively Skewed</text>
+<text x="730" y="130" class="label" font-size="10">← Tail</text>
+
+</svg>

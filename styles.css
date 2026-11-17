@@ -512,3 +512,95 @@ body[data-theme="dark"] .brand-mark svg { stroke: #162b25; }
   .exam-chip b { font-size: 11px; }
   .icon-button { width: 33px; height: 33px; }
 }
+
+/* ===== 15-day revision + practice (study-ui.js) ===== */
+.sd-grid3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+.sd-task { display: grid; gap: 10px; align-content: start; }
+.sd-task-h { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.sd-task-h h3, .sd-h3 { margin: 0; font-size: 14px; }
+.sd-center { text-align: center; display: grid; gap: 10px; justify-items: center; padding: 28px 18px; }
+.sd-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.sd-rows { display: grid; gap: 8px; }
+.sd-row { display: flex; align-items: center; gap: 12px; padding: 11px 13px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface); text-align: left; color: var(--text); width: 100%; }
+.sd-row-btn:hover { background: var(--surface-2); }
+.sd-row-main { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.sd-row-main strong { font-size: 13px; }
+.sd-row-main small { color: var(--muted); font-size: 11px; }
+.sd-check { flex: 0 0 24px; height: 24px; border-radius: 8px; border: 2px solid var(--line); display: grid; place-items: center; font-size: 13px; font-weight: 800; color: #fff; }
+.sd-row.is-done .sd-check { background: var(--brand); border-color: var(--brand); }
+body[data-theme="dark"] .sd-row.is-done .sd-check { color: #12231e; }
+.sd-unit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.sd-unit { display: grid; gap: 9px; align-content: start; }
+.sd-unit-h { display: flex; gap: 10px; align-items: center; }
+.sd-unit-h h3 { margin: 0; font-size: 14px; line-height: 1.3; }
+.sd-stack { display: grid; gap: 12px; }
+.sd-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.sd-list { margin: 8px 0 0; padding-left: 20px; display: grid; gap: 5px; font-size: 13px; }
+.sd-callout { padding: 13px 15px; border-radius: var(--radius-md); border: 1px solid var(--line); font-size: 13px; background: var(--surface-2); }
+.sd-callout b { display: block; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+.sd-callout.remember { background: var(--brand-soft); border-color: transparent; }
+.sd-callout.trap { background: var(--warn-soft); border-color: transparent; }
+.sd-callout.confuse { background: var(--danger-soft); border-color: transparent; }
+.sd-callout.exam { background: var(--info-soft); border-color: transparent; }
+.sd-def { display: grid; gap: 2px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.sd-def:last-child { border-bottom: 0; }
+.sd-def b { color: var(--brand); }
+.sd-prose p { margin: 8px 0; font-size: 13px; }
+.sd-h { margin: 18px 0 4px; font-size: 15px; color: var(--brand); }
+.sd-table-wrap { overflow-x: auto; margin: 10px 0; }
+.sd-caption { font-size: 11px; font-weight: 700; color: var(--muted); margin-bottom: 4px; }
+.sd-table td, .sd-table th { font-size: 12px; vertical-align: top; }
+.sd-fig { margin: 0 0 14px; text-align: center; }
+.sd-fig img { max-width: 100%; height: auto; background: #fff; border-radius: var(--radius-md); border: 1px solid var(--line); }
+.sd-fig figcaption { margin-top: 5px; font-size: 11px; color: var(--muted); }
+.sd-fc-item { border-bottom: 1px solid var(--line); padding: 9px 0; font-size: 13px; }
+.sd-fc-item summary { cursor: pointer; font-weight: 650; }
+.sd-fc-a { padding: 8px 0 2px; color: var(--brand); display: grid; gap: 4px; }
+.sd-fc-a small { color: var(--muted); }
+.sd-sticky-actions { position: sticky; bottom: 76px; z-index: 5; margin-top: 14px; padding: 10px 12px; box-shadow: var(--shadow); }
+.sd-flash { display: grid; gap: 16px; justify-items: center; text-align: center; padding: 28px 18px; margin-top: 14px; }
+.sd-flash-q { font-size: 20px; font-weight: 700; line-height: 1.35; max-width: 560px; }
+.sd-flash-a { font-size: 17px; padding: 14px 16px; border-radius: var(--radius-md); background: var(--brand-soft); max-width: 560px; }
+.sd-rate { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+.sd-rate .button { flex-direction: column; gap: 0; min-width: 96px; }
+.sd-rate small { font-size: 10px; font-weight: 500; opacity: .85; }
+.sd-q { margin-top: 12px; }
+.sd-stem { font-size: 16px; line-height: 1.5; margin: 10px 0; font-weight: 600; }
+.sd-ar, .sd-stmts { padding: 10px 12px; margin: 8px 0; border-radius: var(--radius-sm); background: var(--surface-2); border: 1px solid var(--line); font-size: 14px; display: grid; gap: 5px; }
+.sd-opts { display: grid; gap: 8px; margin-top: 10px; }
+.sd-opt { display: flex; gap: 11px; align-items: flex-start; text-align: left; width: 100%; padding: 12px 13px; border-radius: var(--radius-md); border: 1.5px solid var(--line); background: var(--surface); color: var(--text); font-size: 14px; min-height: 48px; }
+.sd-opt small { display: block; margin-top: 4px; color: var(--muted); font-size: 11px; }
+.sd-opt-id { flex: 0 0 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-3); font-size: 12px; font-weight: 800; }
+.sd-opt.is-picked { border-color: var(--brand-2); background: var(--brand-soft); }
+.sd-opt.is-correct { border-color: var(--brand-2); background: var(--brand-soft); }
+.sd-opt.is-correct .sd-opt-id { background: var(--brand); color: #fff; }
+.sd-opt.is-wrong { border-color: var(--danger); background: var(--danger-soft); }
+.sd-opt.is-wrong .sd-opt-id { background: var(--danger); color: #fff; }
+.sd-opt:disabled { cursor: default; opacity: 1; }
+.sd-palette { display: flex; flex-wrap: wrap; gap: 5px; margin: 10px 0; }
+.sd-dot { width: 32px; height: 32px; border-radius: 9px; border: 1.5px solid var(--line); background: var(--surface); font-size: 11px; font-weight: 700; }
+.sd-dot.is-picked { background: var(--info-soft); border-color: var(--info); }
+.sd-dot.is-correct { background: var(--brand-soft); border-color: var(--brand-2); }
+.sd-dot.is-wrong { background: var(--danger-soft); border-color: var(--danger); }
+.sd-dot.is-current { outline: 2px solid var(--brand-2); outline-offset: 1px; }
+.sd-bad { color: var(--danger); background: var(--danger-soft); }
+.sd-review { border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface); }
+.sd-review summary { cursor: pointer; padding: 11px 13px; font-size: 13px; display: flex; gap: 10px; }
+.sd-mark { font-weight: 800; }
+.sd-review.is-correct .sd-mark { color: var(--brand-2); }
+.sd-review.is-wrong .sd-mark { color: var(--danger); }
+.sd-review-body { padding: 0 8px 8px; }
+.sd-review-body .sd-q { margin-top: 0; border: 0; box-shadow: none; }
+.sd-check-field { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; }
+@media (max-width: 790px) {
+  .sd-grid3 { grid-template-columns: 1fr; }
+  .sd-sticky-actions { bottom: 70px; }
+  .sd-sticky-actions .button { flex: 1 1 auto; }
+  .sd-flash-q { font-size: 18px; }
+}
+/* Grid/flex children must be allowed to shrink so wide tables scroll inside their own wrapper instead of stretching the page. */
+.sd-rows > *, .sd-stack > *, .sd-opts > *, .sd-unit-grid > *, .sd-grid3 > *, .sd-review-body, .sd-review-body > *, .sd-q, .sd-prose { min-width: 0; }
+.sd-review { overflow: hidden; }
+.sd-opt > span:last-child, .sd-stem, .sd-def span, .sd-callout, .sd-ar, .sd-stmts { min-width: 0; overflow-wrap: anywhere; }
+.sd-nav-details { margin: 8px 0; }
+.sd-nav-details > summary { cursor: pointer; font-size: 12px; font-weight: 700; color: var(--brand-2); padding: 4px 0; }

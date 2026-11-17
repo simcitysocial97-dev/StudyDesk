@@ -6,9 +6,11 @@
   const toastEl=document.getElementById('toast');
   const navViews=[
     {id:'dashboard',label:'Today',icon:'home'},
-    {id:'plan',label:'Study calendar',icon:'calendar'},
-    {id:'syllabus',label:'Syllabus',icon:'book'},
-    {id:'practice',label:'Practice',icon:'target'},
+    {id:'plan',label:'15-day plan',icon:'calendar'},
+    {id:'revise',label:'Revise',icon:'book'},
+    {id:'quiz',label:'Practice',icon:'target'},
+    {id:'practice',label:'Mocks & logs',icon:'chart'},
+    {id:'syllabus',label:'Syllabus',icon:'note'},
     {id:'notes',label:'Notebook',icon:'note'},
     {id:'reports',label:'Reports',icon:'chart'},
     {id:'settings',label:'Settings',icon:'settings'}
@@ -61,7 +63,6 @@
   function pageHeader(title,sub,actions=''){
     return `<div class="page-header"><div><div class="eyebrow">UGC NET · December 2026 · JRF preparation</div><h1>${esc(title)}</h1>${sub?`<p>${esc(sub)}</p>`:''}</div>${actions?`<div class="page-actions">${actions}</div>`:''}</div>`;
   }
-  function modeSwitch(){const mode=state.settings.activePlan||'60';return `<div class="mode-switch" role="group" aria-label="Preparation plan"><button type="button" class="${mode==='60'?'active':''}" data-action="select-plan" data-mode="60">60-day<span>Full first pass</span></button><button type="button" class="${mode==='15'?'active':''}" data-action="select-plan" data-mode="15">15-day<span>Emergency selective</span></button></div>`;}
   function navMarkup(items,activeView){
     return items.map(item=>`<button type="button" class="nav-item ${activeView===item.id?'active':''}" data-action="navigate" data-view="${item.id}" aria-current="${activeView===item.id?'page':'false'}">${icon(item.icon)}<span class="nav-label">${item.label}</span>${item.id==='practice'&&dueRevisionCount()?`<span class="nav-badge" aria-label="${dueRevisionCount()} revisions due">${dueRevisionCount()>9?'9+':dueRevisionCount()}</span>`:''}</button>`).join('');
   }
@@ -90,21 +91,18 @@
     const opened=new Set($$('details[data-open-key][open]',main).map(d=>d.dataset.openKey));
     const active=document.activeElement;const activeId=active&&active!==document.body?active.id:'';const selectionStart=active&&typeof active.selectionStart==='number'?active.selectionStart:null;const selectionEnd=active&&typeof active.selectionEnd==='number'?active.selectionEnd:null;
     document.body.dataset.theme=state.settings.theme||'light';renderNav();updateHeader();
-    const views={dashboard:renderDashboard,plan:renderPlan,syllabus:renderSyllabus,practice:renderPractice,notes:renderNotes,reports:renderReports,settings:renderSettings,install:renderInstall,more:renderMore};
+    const SU=window.StudyUI;const views={dashboard:SU.renderToday,plan:SU.renderPlan,revise:SU.renderRevise,quiz:SU.renderQuiz,syllabus:renderSyllabus,practice:renderPractice,notes:renderNotes,reports:renderReports,settings:renderSettings,install:renderInstall,more:renderMore};
     main.innerHTML=(views[app.view]||renderDashboard)();
     opened.forEach(key=>{const node=$$('[data-open-key]',main).find(el=>el.dataset.openKey===key);if(node)node.open=true;});
     if(activeId){const target=document.getElementById(activeId);if(target&&main.contains(target)){target.focus({preventScroll:true});if(selectionStart!==null&&typeof target.setSelectionRange==='function'){try{target.setSelectionRange(selectionStart,selectionEnd);}catch(_){}}}}
     updateTimerDisplay();
   }
   function navigate(view){
+    if(view==='quiz'&&app.view!=='quiz')window.StudyUI.enterQuiz();
     app.view=view;
-    if(view==='plan'&&!app.selectedDay)app.selectedDay=C.currentDayNumber(state,state.settings.activePlan||'60');
+    if(view==='plan'&&!app.selectedDay)app.selectedDay=C.currentDayNumber(state,'15');
     if(view==='more'){}
     render();window.scrollTo({top:0,behavior:'smooth'});
-  }
-  function selectPlan(mode){
-    if(!['60','15'].includes(String(mode)))return;
-    state.settings.activePlan=String(mode);state.ui.activePlan=String(mode);app.selectedDay=C.currentDayNumber(state,mode);persist(`Switched to the ${mode}-day plan. Existing progress is kept.`).then(render);
   }
   function examCountdownText(){
     if(!C.parseDate(state.settings.examDate))return 'Add your confirmed exam date in Settings to start the countdown.';
@@ -113,63 +111,6 @@
   function renderMetric(label,value,foot,iconName){return `<article class="card metric-card"><div class="metric-label"><span>${esc(label)}</span><span class="metric-icon">${icon(iconName||'chart')}</span></div><strong class="metric-number">${esc(value)}</strong><div class="metric-foot">${esc(foot)}</div></article>`;}
   function renderQuickConcept(c){
     const complete=c.status==='completed';return `<label class="quick-task"><input type="checkbox" data-action="concept-toggle" data-id="${attr(c.id)}" ${complete?'checked':''} aria-label="Mark ${attr(c.title)} ${complete?'not completed':'completed'}"><span class="quick-text"><strong>${esc(c.title)}</strong><small>${esc(c.paper)} · ${esc(c.unitTitle)} · ${esc(c.estimatedMinutes)} min</small></span></label>`;
-  }
-  function renderDashboard(){
-    const planId=String(state.settings.activePlan||'60');const dayNo=C.currentDayNumber(state,planId);const day=C.planDay(state,planId,dayNo);const date=C.planDate(state,planId,dayNo)||today();
-    const prog=C.overallCompletion(state);const dayProg=C.dayProgress(state,planId,dayNo);const dayTasks=(day?.conceptIds||[]).map(id=>C.getConcept(state,id)).filter(Boolean);
-    const dayOpen=dayTasks.filter(c=>c.status!=='completed');const visibleTasks=(dayOpen.length?dayOpen:dayTasks).slice(0,6);
-    const extras=(day?.tasks||[]).filter(t=>!t.done).slice(0,2);
-    const overdue=C.getOverduePlanItems(state,planId).slice(0,4);const overdueTotal=C.getOverduePlanItems(state,planId).length;
-    const revisions=C.dueRevisionBuckets(state);const dueRevs=[...revisions.overdue,...revisions.due].slice(0,4);const upcomingRevs=revisions.upcoming.filter(r=>r.dueDate<=C.addDays(today(),7)).slice(0,3);
-    const weak=C.quizWeakTopics(state,5).slice(0,3);const streak=C.streakDays(state);const minutes=C.totalStudyMinutes(state);
-    const planDays=C.planSummary(state,planId);
-    const statusChip=day?.isRest||day?.status==='rest'?'Rest day':day?.status==='completed'?'Marked complete':day?.status==='missed'?'Missed':dayProg.conceptCompleted||dayProg.taskCompleted?'In progress':'Planned';
-    return `${pageHeader('Your study space',`A steady 3–4 hour daily rhythm: roughly ${Number(state.settings.paper2TargetMinutes??160)} minutes for Psychology and ${Number(state.settings.paper1TargetMinutes??50)} minutes for Paper 1. Update either target any time.`)}
-      <section class="dashboard-hero">
-        <div class="card welcome-card"><div class="eyebrow">${planId==='15'?'Emergency selective coverage':'60-study-day framework'}</div><h2>Make today count, one clear concept at a time.</h2><p>${esc(examCountdownText())} Checked concepts measure coverage, not mastery; confidence, quiz accuracy and revision are tracked separately.</p><div class="welcome-actions"><button type="button" class="button" data-action="continue-today">Continue today’s study ${icon('arrow')}</button><button type="button" class="button secondary" data-action="navigate" data-view="plan">Open calendar</button></div></div>
-        <article class="card today-side-card"><div><div class="today-date">${esc(C.formatDate(date))} ${date===today()?'· Today':''}</div><div class="today-number">Day ${dayNo} <span>/ ${planId}</span></div><div class="today-topic">${esc(day?.title||'Study day')}</div><div class="today-meta"><span class="pill">${esc(statusChip)}</span><span class="pill">${Number(day?.targetMinutes??210)} min planned</span><span class="pill">${C.minutesForDay(state,planId,dayNo)} min focused</span></div></div><div style="margin-top:14px">${modeSwitch()}</div></article>
-      </section>
-      <section class="metric-grid" aria-label="Preparation overview">
-        ${renderMetric('Psychology coverage',`${prog.p2.percent}%`,`${prog.p2.completed} of ${prog.p2.total} mandatory concepts completed`,'book')}
-        ${renderMetric('Paper 1 coverage',`${prog.p1.percent}%`,`${prog.p1.completed} of ${prog.p1.total} mandatory concepts completed`,'target')}
-        ${renderMetric('Combined syllabus',`${prog.percent}%`,`${prog.completed} of ${prog.total} mandatory concepts completed`,'chart')}
-        ${renderMetric('Focused time',`${(minutes/60).toFixed(minutes%60?1:0)}h`,`${streak} day${streak===1?'':'s'} current streak · local timer log`,'clock')}
-      </section>
-      <section class="progress-papers">
-        <article class="card paper-progress"><div class="paper-progress-head"><div><h3>Paper 2 · Psychology</h3><p>Coverage only; revisions and PYQs are separate.</p></div><strong>${prog.p2.percent}%</strong></div><div class="progress-line"><span style="width:${prog.p2.percent}%"></span></div></article>
-        <article class="card paper-progress"><div class="paper-progress-head"><div><h3>Paper 1 · General</h3><p>All 10 units are tracked alongside Paper 2.</p></div><strong>${prog.p1.percent}%</strong></div><div class="progress-line warm"><span style="width:${prog.p1.percent}%"></span></div></article>
-      </section>
-      <section class="dashboard-grid">
-        <article class="card card-pad"><div class="card-title-row"><div><h2>Today’s scheduled work</h2><p>${dayProg.conceptCompleted}/${dayProg.conceptTotal} concepts · ${dayProg.taskCompleted}/${dayProg.taskTotal} practice and review tasks complete</p></div><button class="link-button" type="button" data-action="continue-today">Open day ↗</button></div>
-          ${(visibleTasks.length||extras.length)?`<div class="quick-task-list">${visibleTasks.map(renderQuickConcept).join('')}${extras.map(t=>`<label class="quick-task"><input type="checkbox" data-action="task-toggle" data-task-id="${attr(t.id)}" data-day="${dayNo}" ${t.done?'checked':''}><span class="quick-text"><strong>${esc(t.title)}</strong><small>${esc(t.paper)} · ${esc(typeName(t.taskType))} · ${t.estimatedMinutes} min</small></span></label>`).join('')}</div>${dayOpen.length>6?`<p class="small-text">${dayOpen.length-6} more concepts on this study day.</p>`:''}`:`<div class="empty-inline">No tasks are linked to this day yet. Open the calendar to add or reschedule a task.</div>`}
-        </article>
-        <article class="card card-pad ${overdueTotal?'overdue-callout':''}"><div class="card-title-row"><div><h2>${overdueTotal?'Overdue / unfinished':'Revision queue'}</h2><p>${overdueTotal?`${overdueTotal} unfinished plan items are dated before today. Nothing is auto-completed.`:`${dueRevs.length} revisions are due or overdue today.`}</p></div><button class="link-button" type="button" data-action="navigate" data-view="practice" data-tab="revisions">View all</button></div>
-          ${overdueTotal?`<div class="list-rows">${overdue.map(item=>`<button class="list-row" style="width:100%;border:0;background:transparent;text-align:left;cursor:pointer" data-action="go-plan-day" data-day="${item.day}" data-plan-id="${item.planId}"><span class="tag high">D${item.day}</span><span class="list-row-main"><strong>${esc(item.kind==='concept'?item.concept.title:item.task.title)}</strong><small>Due ${esc(C.formatDate(item.date))} · reschedule or continue</small></span></button>`).join('')}${overdueTotal>4?`<div class="small-text">+ ${overdueTotal-4} more unfinished items</div>`:''}</div>`:
-          dueRevs.length?`<div class="list-rows">${dueRevs.map(r=>`<div class="list-row"><span class="tag ${r.dueDate<today()?'high':'tough'}">${r.dueDate<today()?'Late':'Today'}</span><span class="list-row-main"><strong>${esc(r.concept?.title||'Concept')}</strong><small>${esc(r.concept?.unitTitle||'')} · ${esc(r.dueDate)}</small></span></div>`).join('')}</div>`:`<div class="empty-inline">No revision is due today. New revisions are scheduled when you complete a concept.</div>`}
-          ${upcomingRevs.length?`<div class="section-title" style="margin:14px 0 4px"><div><h2 style="font-size:15px">Upcoming revisions</h2><p>Next 7 days</p></div></div><div class="list-rows">${upcomingRevs.map(r=>`<div class="list-row"><span class="tag">${esc(r.dueDate)}</span><span class="list-row-main"><strong>${esc(r.concept?.title||'Concept')}</strong><small>${esc(r.concept?.unitTitle||'')} · revision ${r.step||'extra'}</small></span></div>`).join('')}</div>`:`<p class="small-text" style="margin-top:10px">No upcoming revision in the next 7 days.</p>`}
-        </article>
-      </section>
-      <section class="dashboard-grid" style="margin-top:14px">
-        <article class="card card-pad"><div class="card-title-row"><div><h2>Weak topics from quiz entries</h2><p>Only topics with at least 5 recorded quiz questions are ranked.</p></div><button class="link-button" data-action="navigate" data-view="syllabus">Open syllabus ↗</button></div>
-          ${weak.length?`<div class="list-rows">${weak.map(w=>`<div class="list-row"><span class="tag high">${Math.round(w.accuracy*100)}%</span><span class="list-row-main"><strong>${esc(w.topic)}</strong><small>${esc(w.paper)} · ${esc(w.unitTitle)} · ${w.correct}/${w.total} correct</small></span></div>`).join('')}</div>`:`<div class="empty-inline">Add quiz correct/total scores to individual concepts. A topic appears here after at least 5 questions are recorded.</div>`}
-        </article>
-        <article class="card card-pad"><div class="card-title-row"><div><h2>Study-day progress</h2><p>Day status is an explicit check-in, separate from concept completion.</p></div><span class="tag">${planDays.completed}/${planDays.planned} days</span></div><div class="progress-line"><span style="width:${planDays.percent}%"></span></div><div class="report-stat-row"><span>Selected plan</span><b>${planId==='15'?'15-day emergency':'60-day framework'}</b></div><div class="report-stat-row"><span>Current date in plan</span><b>Day ${dayNo} · ${esc(C.formatDate(date))}</b></div><div class="report-stat-row"><span>Database</span><b>${esc(dbBackend)} · local device</b></div></article>
-      </section>
-      <section><div class="section-title"><div><h2>Jump back in</h2><p>Common actions, one tap away.</p></div></div><div class="quick-links">
-        <button class="quick-link" data-action="open-syllabus-paper" data-paper="Paper 1">${icon('target')}<span>Paper 1 tracker</span></button>
-        <button class="quick-link" data-action="open-syllabus-paper" data-paper="Paper 2">${icon('book')}<span>Psychology units</span></button>
-        <button class="quick-link" data-action="navigate" data-view="practice" data-tab="revisions">${icon('clock')}<span>Revision queue</span></button>
-        <button class="quick-link" data-action="navigate" data-view="practice" data-tab="pyqs">${icon('pencil')}<span>PYQs &amp; errors</span></button>
-        <button class="quick-link" data-action="navigate" data-view="practice" data-tab="mocks">${icon('chart')}<span>Mock tests</span></button>
-        <button class="quick-link" data-action="navigate" data-view="practice" data-tab="timer">${icon('clock')}<span>Study timer</span></button>
-        <button class="quick-link" data-action="navigate" data-view="notes">${icon('note')}<span>Revision notebook</span></button>
-        <button class="quick-link" data-action="navigate" data-view="reports">${icon('chart')}<span>Reports</span></button>
-      </div></section>`;
-  }
-  function planDayItem(day,planId){
-    const date=C.planDate(state,planId,day.day);const p=C.dayProgress(state,planId,day.day);const selected=Number(app.selectedDay)===Number(day.day);
-    const dayState=day.isRest||day.status==='rest'?'Rest':day.status==='completed'?'Done':day.status==='missed'?'Missed':p.conceptCompleted||p.taskCompleted?'In progress':'Planned';
-    return `<button type="button" class="day-list-item ${selected?'active':''}" data-action="select-day" data-day="${day.day}"><span class="day-bubble">${day.day}</span><span class="day-list-copy"><strong>${esc(day.title)}</strong><small>${date?esc(C.formatDate(date,{month:'short',day:'numeric',year:'numeric'})):'Set start date'} · ${esc(dayState)}</small></span><span class="day-list-right"><b>${p.conceptCompleted}/${p.conceptTotal}</b><small>concepts</small></span></button>`;
   }
   function dayTopicGroup(concepts,planId,dayNum){
     const grouped=new Map();concepts.forEach(c=>{if(!grouped.has(c.unitId))grouped.set(c.unitId,[]);grouped.get(c.unitId).push(c);});
@@ -189,27 +130,11 @@
       <div class="field span-all"><button class="quiet-button" type="button" data-action="delete-plan-task" data-task-id="${attr(t.id)}" data-day="${day.day}">Remove this optional plan task</button></div>
     </div></details></article>`;
   }
-  function renderPlan(){
-    const planId=String(state.settings.activePlan||'60');const days=state.plans[planId]||[];if(!app.selectedDay)app.selectedDay=C.currentDayNumber(state,planId);let day=C.planDay(state,planId,app.selectedDay)||days[0];if(!day)return `${pageHeader('Study calendar','No study days were found.')}`;
-    const date=C.planDate(state,planId,day.day);const p=C.dayProgress(state,planId,day.day);const concepts=(day.conceptIds||[]).map(id=>C.getConcept(state,id)).filter(Boolean);const p2=concepts.filter(c=>c.paper==='Paper 2'),p1=concepts.filter(c=>c.paper==='Paper 1');const actual=C.minutesForDay(state,planId,day.day);const rest=day.isRest||day.status==='rest';const daysSummary=C.planSummary(state,planId);
-    const statusOptions=[['planned','Planned'],['partial','Partially completed'],['completed','Completed'],['missed','Missed'],['rest','Rest day']];
-    return `${pageHeader('Study calendar',planId==='15'?'Emergency selective coverage only · this does not replace the full-depth 60-day checklist.':'60 study sessions in the original priority-based order. You can open any day, adjust dates and move unfinished work without losing it.',modeSwitch())}
-      <div class="plan-controls"><div class="today-meta"><span class="pill">${days.length} planned days</span><span class="pill">${daysSummary.completed} explicitly completed</span><span class="pill">Start date: ${state.settings.startDate?esc(C.formatDate(state.settings.startDate,{month:'short',day:'numeric',year:'numeric'})):'not set'}</span></div><button type="button" class="button secondary small" data-action="navigate" data-view="settings">Edit dates &amp; daily targets</button></div>
-      ${planId==='15'?`<div class="notice warn" style="margin-bottom:12px"><span>${icon('alert')}</span><span><strong>Selective emergency pass:</strong> concepts not present in this 15-day plan remain available in the full syllabus and 60-day plan. Plan switching never deletes progress.</span></div>`:''}
-      <div class="plan-layout"><section class="card day-list-card"><div class="day-list-header"><h2>${planId==='15'?'15-day emergency plan':'60-day priority plan'}</h2><p>Select any day; tasks do not lock later days.</p></div><div class="day-list">${days.map(d=>planDayItem(d,planId)).join('')}</div></section>
-      <section class="card day-detail"><div class="day-detail-top"><div><div class="eyebrow">Study day ${day.day} · ${planId==='15'?'Emergency plan':'Full plan'}</div><h2>${esc(day.title)}</h2><p>${date?esc(C.formatDate(date,{weekday:'long',month:'long',day:'numeric',year:'numeric'})):'Set a start date in Settings'}${date===today()?' · Today':''}</p><div class="day-detail-stats"><span class="pill">${p.conceptCompleted}/${p.conceptTotal} concepts complete</span><span class="pill">${p.taskCompleted}/${p.taskTotal} plan tasks complete</span><span class="pill">${actual} focused min</span><span class="pill">${Number(day.targetMinutes??210)} min target</span></div></div><button class="button secondary small" type="button" data-action="navigate" data-view="practice" data-tab="timer">Start a study session ${icon('clock')}</button></div>
-      <div class="day-edit-grid"><div class="field"><label for="day-date-${planId}-${day.day}">Planned date (override)</label><input id="day-date-${planId}-${day.day}" type="date" data-action="day-date" data-plan-id="${planId}" data-day="${day.day}" value="${attr(day.dateOverride||'')}"><span class="hint">Blank follows the plan start date.</span></div><div class="field"><label for="day-target-${planId}-${day.day}">Daily target (minutes)</label><input id="day-target-${planId}-${day.day}" type="number" min="0" max="1440" step="5" data-action="day-target" data-plan-id="${planId}" data-day="${day.day}" value="${Number(day.targetMinutes??210)}"></div><div class="field"><label for="day-status-${planId}-${day.day}">Day status</label><select id="day-status-${planId}-${day.day}" data-action="day-status" data-plan-id="${planId}" data-day="${day.day}">${statusOptions.map(([v,l])=>`<option value="${v}" ${(day.status===v||v==='rest'&&rest)?'selected':''}>${l}</option>`).join('')}</select></div></div>
-      <div class="field"><label for="day-notes-${planId}-${day.day}">Day note / reschedule plan</label><textarea id="day-notes-${planId}-${day.day}" data-action="day-note" data-plan-id="${planId}" data-day="${day.day}" placeholder="What will you move if this day is interrupted?">${esc(day.notes||'')}</textarea></div>
-      ${!rest?`${p2.length?`<section class="day-task-section"><h3><span class="tag">Paper 2 · Psychology</span><span class="summary-count">${p2.filter(c=>c.status==='completed').length}/${p2.length}</span></h3>${dayTopicGroup(p2,planId,day.day)}</section>`:''}${p1.length?`<section class="day-task-section"><h3><span class="tag easy">Paper 1 · General</span><span class="summary-count">${p1.filter(c=>c.status==='completed').length}/${p1.length}</span></h3>${dayTopicGroup(p1,planId,day.day)}</section>`:''}
-      ${(day.tasks||[]).length?`<section class="day-task-section"><h3><span>Revision, PYQ, mock &amp; practice tasks</span><span class="summary-count">${day.tasks.filter(t=>t.done).length}/${day.tasks.length}</span></h3><div class="concept-list">${day.tasks.map(t=>dayPlanTask(t,day,planId)).join('')}</div></section>`:''}
-      <details class="day-task-section" data-open-key="add-task-${planId}-${day.day}"><summary class="link-button">${icon('plus')} Add a custom task to this day</summary><form data-form="add-plan-task" data-day="${day.day}" data-plan-id="${planId}" class="form-grid" style="padding:10px 0"><div class="field span-2"><label>Task</label><input name="title" required maxlength="160" placeholder="e.g., Review a difficult comparison"></div><div class="field"><label>Paper</label><select name="paper"><option>Paper 2</option><option>Paper 1</option></select></div><div class="field"><label>Task type</label><select name="taskType"><option value="practice">Practice</option><option value="pyq">PYQ practice</option><option value="revision">Revision</option><option value="mock">Mock test</option></select></div><div class="field"><label>Minutes</label><input type="number" name="minutes" min="0" max="600" value="20"></div><div class="form-actions span-2"><button class="button small" type="submit">Add task</button></div></form></details>`:`<div class="notice info" style="margin-top:14px">Rest day is intentionally excluded from overdue calculations. Clear “Rest day” to show the study checklist again.</div>`}
-      </section></div>`;
-  }
   function conceptMatches(c,filters){
     if(filters.paper!=='all'&&c.paper!==filters.paper)return false;
     if(filters.unit!=='all'&&c.unitId!==filters.unit)return false;
     if(filters.day!=='all'){
-      const day=C.planDay(state,state.settings.activePlan||'60',Number(filters.day));if(!day||!(day.conceptIds||[]).includes(c.id))return false;
+      const day=C.planDay(state,'15',Number(filters.day));if(!day||!(day.conceptIds||[]).includes(c.id))return false;
     }
     if(filters.query){const hay=`${c.title} ${c.topic} ${c.subtopic} ${c.unitTitle} ${c.learningTarget}`.toLowerCase();if(!hay.includes(filters.query.toLowerCase()))return false;}
     if(filters.filter==='incomplete'&&c.status==='completed')return false;
@@ -222,7 +147,7 @@
   }
   function topicKey(unitId,topic){return `${unitId}::${topic}`;}
   function renderSyllabus(){
-    const paper=app.syllabusPaper;const filter=app.syllabusFilter;const query=app.syllabusQuery;const unitSel=app.syllabusUnit;const daySel=app.syllabusDay;const planId=String(state.settings.activePlan||'60');
+    const paper=app.syllabusPaper;const filter=app.syllabusFilter;const query=app.syllabusQuery;const unitSel=app.syllabusUnit;const daySel=app.syllabusDay;const planId=String('15');
     const paperUnits=paper==='Paper 1'?D.PAPER1_UNITS:paper==='Paper 2'?D.PSY_UNITS:unitDefs;
     if(filter==='pyqs'){
       const pending=[];(state.plans[planId]||[]).forEach(d=>(d.tasks||[]).forEach(t=>{if(t.taskType==='pyq'&&!t.done)pending.push({d,t});}));
@@ -251,12 +176,12 @@
   }
   function renderSyllabusFilters(){
     const unitOptions=unitDefs.filter(u=>app.syllabusPaper==='all'||app.syllabusPaper==='Paper 1'&&u.id.startsWith('p1')||app.syllabusPaper==='Paper 2'&&u.id.startsWith('p2'));
-    const days=state.plans[String(state.settings.activePlan||'60')]||[];
+    const days=state.plans[String('15')]||[];
     return `<div class="card syllabus-toolbar"><div class="field search-box"><label for="syllabus-search">Search concepts</label>${icon('search')}<input id="syllabus-search" type="search" data-action="syllabus-search" placeholder="Name, topic, subtopic…" value="${attr(app.syllabusQuery)}"></div><div class="field"><label for="syllabus-paper">Paper</label><select id="syllabus-paper" data-action="syllabus-paper"><option value="Paper 2" ${app.syllabusPaper==='Paper 2'?'selected':''}>Paper 2 · Psychology</option><option value="Paper 1" ${app.syllabusPaper==='Paper 1'?'selected':''}>Paper 1 · General</option><option value="all" ${app.syllabusPaper==='all'?'selected':''}>Both papers</option></select></div><div class="field"><label for="syllabus-filter">Filter</label><select id="syllabus-filter" data-action="syllabus-filter"><option value="all" ${app.syllabusFilter==='all'?'selected':''}>All concepts</option><option value="incomplete" ${app.syllabusFilter==='incomplete'?'selected':''}>Incomplete</option><option value="high" ${app.syllabusFilter==='high'?'selected':''}>High priority</option><option value="tough" ${app.syllabusFilter==='tough'?'selected':''}>Tough</option><option value="revision" ${app.syllabusFilter==='revision'?'selected':''}>Revision due</option><option value="pyqs" ${app.syllabusFilter==='pyqs'?'selected':''}>PYQs remaining</option></select></div><div class="field"><label for="syllabus-unit">Unit</label><select id="syllabus-unit" data-action="syllabus-unit"><option value="all">All units</option>${unitOptions.map(u=>`<option value="${u.id}" ${app.syllabusUnit===u.id?'selected':''}>${u.id.startsWith('p1')?'P1':'P2'} · ${u.number}. ${esc(u.title)}</option>`).join('')}</select></div><div class="field"><label for="syllabus-day">Study day</label><select id="syllabus-day" data-action="syllabus-day"><option value="all">All days · ${state.settings.activePlan}-day plan</option>${days.map(d=>`<option value="${d.day}" ${String(app.syllabusDay)===String(d.day)?'selected':''}>Day ${d.day} · ${esc(d.title.slice(0,26))}</option>`).join('')}</select></div></div>`;
   }
   function findConceptDay(planId,id){const days=state.plans[String(planId)]||[];const d=days.find(x=>(x.conceptIds||[]).includes(id));return d?.day||0;}
   function renderConceptRow(c,context={}){
-    const planId=String(context.planId||state.settings.activePlan||'60');const fromDay=context.dayNum||findConceptDay(planId,c.id);const complete=c.status==='completed';
+    const planId=String(context.planId||'15');const fromDay=context.dayNum||findConceptDay(planId,c.id);const complete=c.status==='completed';
     const revisions=(state.revisions||[]).filter(r=>r.conceptId===c.id&&r.status==='scheduled').sort((a,b)=>a.dueDate.localeCompare(b.dueDate));const dueRev=revisions.find(r=>r.dueDate<=today());
     const priorityClass=c.priority==='High'?'high':'';const difficultyClass=c.difficulty==='Tough'?'tough':c.difficulty==='Easy'?'easy':'';
     const editKey=`concept-edit-${c.id}`;
@@ -285,7 +210,7 @@
     const tabs=[['pyqs','PYQs & errors'],['revisions','Revisions'],['mocks','Mock tests'],['timer','Study timer']];
     const label=tabs.find(x=>x[0]===app.practiceTab)?.[1]||'Practice';
     const content=app.practiceTab==='pyqs'?renderPyqs():app.practiceTab==='revisions'?renderRevisions():app.practiceTab==='mocks'?renderMocks():renderTimer();
-    return `${pageHeader('Practice & review','Log real questions and your own mock results. No past questions, answer keys, year associations or JRF predictions are generated by this tracker.')}<div class="practice-tabs" role="tablist">${tabs.map(([id,name])=>`<button type="button" role="tab" aria-selected="${app.practiceTab===id}" class="${app.practiceTab===id?'active':''}" data-action="practice-tab" data-tab="${id}">${esc(name)}</button>`).join('')}</div><div aria-label="${esc(label)}">${content}</div>`;
+    return `${pageHeader('Mocks & logs','Log real PYQs and your own mock results, see spaced concept revisions and run the study timer. Question-bank practice lives under Practice.')}<div class="practice-tabs" role="tablist">${tabs.map(([id,name])=>`<button type="button" role="tab" aria-selected="${app.practiceTab===id}" class="${app.practiceTab===id?'active':''}" data-action="practice-tab" data-tab="${id}">${esc(name)}</button>`).join('')}</div><div aria-label="${esc(label)}">${content}</div>`;
   }
   function unitOptions(paper,selected=''){
     const units=unitDefs.filter(u=>paper==='Paper 1'?u.id.startsWith('p1'):paper==='Paper 2'?u.id.startsWith('p2'):true);
@@ -294,7 +219,7 @@
   function renderPyqs(){
     const q=app.editingPyqId?state.pyqs.find(x=>x.id===app.editingPyqId):null;
     const p=q?.paper||'Paper 2';const stats=C.pyqStats(state,{minAnswered:5});
-    return `<div class="content-grid"><section class="card form-card"><h2>${q?'Edit PYQ record':'Log a PYQ attempt'}</h2><p>Record a question you attempted from your own book or a verified paper source. Keep the source reference; this app includes no question bank. <a href="https://ndl.iitkgp.ac.in/cd_document/ugc_net/04_psychology" target="_blank" rel="noreferrer">NDLI Psychology paper collection ↗</a></p>
+    return `<div class="content-grid"><section class="card form-card"><h2>${q?'Edit PYQ record':'Log a PYQ attempt'}</h2><p>Record a question you attempted from your own book or a verified paper source. Keep the source reference. The Practice screen has generated practice questions; this log is for real exam papers you verify yourself. <a href="https://ndl.iitkgp.ac.in/cd_document/ugc_net/04_psychology" target="_blank" rel="noreferrer">NDLI Psychology paper collection ↗</a></p>
       <form data-form="pyq" class="form-grid three">
         <div class="field"><label for="pyq-date">Date</label><input id="pyq-date" type="date" name="date" value="${attr(q?.date||today())}" required></div>
         <div class="field"><label for="pyq-paper-field">Paper</label><select id="pyq-paper-field" name="paper" data-action="pyq-paper-select"><option ${p==='Paper 1'?'selected':''}>Paper 1</option><option ${p==='Paper 2'?'selected':''}>Paper 2</option></select></div>
@@ -350,7 +275,7 @@
   function renderTimer(){
     const t=state.timer||{};const running=t.status==='running',paused=t.status==='paused';const last=[...state.sessions].sort((a,b)=>(b.startedAt||'').localeCompare(a.startedAt||'')).slice(0,8);
     const todayMin=C.dailyMinutes(state,today());const weekStart=C.addDays(today(),-6);const weekMin=state.sessions.filter(s=>s.date>=weekStart&&s.date<=today()).reduce((sum,s)=>sum+Number(s.durationMinutes||0),0);
-    return `<div class="content-grid"><section class="card timer-panel"><div class="eyebrow">Focused study timer</div><div id="timer-display" class="timer-display">${formatClock(currentTimerMs())}</div><p id="timer-status" class="timer-subtitle">${running?'Timer running · elapsed time is saved locally but logged only when stopped.':paused?'Timer paused · resume or stop to save a session.':'Not running · incomplete timers are never added to study hours.'}</p><div class="form-grid three" style="width:100%;max-width:720px;text-align:left;margin-bottom:17px"><div class="field"><label>Assign session to</label><select data-action="timer-field" data-field="paper"><option ${t.paper==='Paper 1'?'selected':''}>Paper 1</option><option ${t.paper==='Paper 2'?'selected':''}>Paper 2</option></select></div><div class="field"><label>Session type</label><select data-action="timer-field" data-field="category">${[['new-learning','New learning'],['pyq','PYQs'],['revision','Revision'],['mock','Mock test']].map(([v,l])=>`<option value="${v}" ${t.category===v?'selected':''}>${l}</option>`).join('')}</select></div><div class="field"><label>Unit (optional)</label><select data-action="timer-field" data-field="unitId"><option value="">Not assigned</option>${unitDefs.filter(u=>t.paper==='Paper 1'?u.id.startsWith('p1'):u.id.startsWith('p2')).map(u=>`<option value="${u.id}" ${t.unitId===u.id?'selected':''}>${u.number}. ${esc(u.title)}</option>`).join('')}</select></div><div class="field"><label>Plan</label><select data-action="timer-field" data-field="planId"><option value="60" ${t.planId==='60'?'selected':''}>60-day</option><option value="15" ${t.planId==='15'?'selected':''}>15-day emergency</option></select></div><div class="field"><label>Study day</label><select data-action="timer-field" data-field="day">${(state.plans[t.planId||'60']||[]).map(d=>`<option value="${d.day}" ${Number(t.day)===d.day?'selected':''}>Day ${d.day}</option>`).join('')}</select></div></div><div class="timer-actions">${!running&&!paused?`<button class="button" type="button" data-action="timer-start">${icon('clock')} Start session</button>`:''}${running?`<button class="button secondary" type="button" data-action="timer-pause">Pause</button><button class="button" type="button" data-action="timer-stop">Stop &amp; save session</button>`:''}${paused?`<button class="button" type="button" data-action="timer-resume">Resume</button><button class="button secondary" type="button" data-action="timer-stop">Stop &amp; save session</button>`:''}</div><p class="disclaimer">Only a stopped session is written to study-hour reports. If the page closes while running, the timer state is restored safely; stopping later creates one session.</p></section>
+    return `<div class="content-grid"><section class="card timer-panel"><div class="eyebrow">Focused study timer</div><div id="timer-display" class="timer-display">${formatClock(currentTimerMs())}</div><p id="timer-status" class="timer-subtitle">${running?'Timer running · elapsed time is saved locally but logged only when stopped.':paused?'Timer paused · resume or stop to save a session.':'Not running · incomplete timers are never added to study hours.'}</p><div class="form-grid three" style="width:100%;max-width:720px;text-align:left;margin-bottom:17px"><div class="field"><label>Assign session to</label><select data-action="timer-field" data-field="paper"><option ${t.paper==='Paper 1'?'selected':''}>Paper 1</option><option ${t.paper==='Paper 2'?'selected':''}>Paper 2</option></select></div><div class="field"><label>Session type</label><select data-action="timer-field" data-field="category">${[['new-learning','New learning'],['pyq','PYQs'],['revision','Revision'],['mock','Mock test']].map(([v,l])=>`<option value="${v}" ${t.category===v?'selected':''}>${l}</option>`).join('')}</select></div><div class="field"><label>Unit (optional)</label><select data-action="timer-field" data-field="unitId"><option value="">Not assigned</option>${unitDefs.filter(u=>t.paper==='Paper 1'?u.id.startsWith('p1'):u.id.startsWith('p2')).map(u=>`<option value="${u.id}" ${t.unitId===u.id?'selected':''}>${u.number}. ${esc(u.title)}</option>`).join('')}</select></div><div class="field"><label>Study day</label><select data-action="timer-field" data-field="day">${(state.plans['15']||[]).map(d=>`<option value="${d.day}" ${Number(t.day)===d.day?'selected':''}>Day ${d.day}</option>`).join('')}</select></div></div><div class="timer-actions">${!running&&!paused?`<button class="button" type="button" data-action="timer-start">${icon('clock')} Start session</button>`:''}${running?`<button class="button secondary" type="button" data-action="timer-pause">Pause</button><button class="button" type="button" data-action="timer-stop">Stop &amp; save session</button>`:''}${paused?`<button class="button" type="button" data-action="timer-resume">Resume</button><button class="button secondary" type="button" data-action="timer-stop">Stop &amp; save session</button>`:''}</div><p class="disclaimer">Only a stopped session is written to study-hour reports. If the page closes while running, the timer state is restored safely; stopping later creates one session.</p></section>
       <aside class="card form-card"><h2>Focused time</h2><p>Session totals come only from saved timer sessions.</p><div class="report-stat-row"><span>Today</span><b>${(todayMin/60).toFixed(1)} h</b></div><div class="report-stat-row"><span>Last 7 days</span><b>${(weekMin/60).toFixed(1)} h</b></div><div class="report-stat-row"><span>All time</span><b>${(C.totalStudyMinutes(state)/60).toFixed(1)} h</b></div><div class="report-stat-row"><span>Current streak</span><b>${C.streakDays(state)} day${C.streakDays(state)===1?'':'s'}</b></div></aside></div>
       <section class="section-title"><div><h2>Recent sessions</h2><p>${state.sessions.length} saved session${state.sessions.length===1?'':'s'}.</p></div></section>${last.length?`<div class="card card-pad"><div class="session-list">${last.map(s=>`<div class="session-row"><div><b>${esc(s.paper)} · ${esc(typeName(s.category))}</b><small>${esc(s.date)}${s.unitId?` · ${esc(unitTitle(s.unitId))}`:''} · Day ${s.day||'—'}</small></div><div style="text-align:right"><b>${Number(s.durationMinutes||0)} min</b><small>${esc(s.startTime||'')}–${esc(s.endTime||'')}</small></div></div>`).join('')}</div></div>`:`<div class="card card-pad"><div class="filter-empty">Start and stop a study timer to build your session log.</div></div>`}`;
   }
@@ -370,7 +295,7 @@
       <section class="card"><div class="card-pad"><div class="field search-box"><label for="note-search">Search all notes</label>${icon('search')}<input id="note-search" type="search" data-action="note-search" value="${attr(app.noteQuery)}" placeholder="Researchers, formulas, mistakes…"></div></div><div class="note-list">${notes.length?notes.map(n=>`<button type="button" class="${selected?.id===n.id?'active':''}" data-action="select-note" data-id="${attr(n.id)}" data-kind="${attr(n.kind)}"><strong>${esc(n.title)}</strong><small>${esc(n.category)}${n.paper?` · ${esc(n.paper)}`:''}${n.topic?` · ${esc(n.topic)}`:''}</small><small>${esc(n.body.slice(0,140))}${n.body.length>140?'…':''}</small></button>`).join(''):`<div class="filter-empty">No notes match your search. Add a revision sheet or write a note inside a concept, topic or study day.</div>`}</div></section></div>`;
   }
   function renderReports(){
-    const all=C.overallCompletion(state);const units=C.completionByUnit(state);const currentPlan=String(state.settings.activePlan||'60');const planSummary=C.planSummary(state,currentPlan);const remainingExam=C.parseDate(state.settings.examDate)?C.daysBetween(today(),state.settings.examDate):null;
+    const all=C.overallCompletion(state);const units=C.completionByUnit(state);const currentPlan=String('15');const planSummary=C.planSummary(state,currentPlan);const remainingExam=C.parseDate(state.settings.examDate)?C.daysBetween(today(),state.settings.examDate):null;
     const ranked=Object.values(units).sort((a,b)=>a.percent-b.percent);const high=state.concepts.filter(c=>c.mandatory!==false&&c.priority==='High'&&c.status!=='completed');const tough=state.concepts.filter(c=>c.mandatory!==false&&c.difficulty==='Tough'&&c.status!=='completed');const marked=state.concepts.filter(c=>c.status==='needs_revision');
     const startWeek=C.addDays(today(),-6);const week=state.sessions.filter(s=>s.date>=startWeek&&s.date<=today()).reduce((sum,s)=>sum+Number(s.durationMinutes||0),0);const total=C.totalStudyMinutes(state);
     const dates=Array.from({length:7},(_,i)=>C.addDays(today(),i-6));const dayRows=dates.map(d=>({date:d,actual:C.dailyMinutes(state,d),planned:(state.plans[currentPlan]||[]).filter(x=>C.planDate(state,currentPlan,x.day)===d).reduce((s,x)=>s+Number(x.targetMinutes||0),0)}));const maxHours=Math.max(1,...dayRows.map(x=>x.actual));const plannedWeek=dayRows.reduce((sum,x)=>sum+x.planned,0);
@@ -385,7 +310,7 @@
       <article class="card analytics-card"><div class="card-title-row"><div><h2>Weakest quiz topics</h2><p>Only topics with ≥5 recorded quiz questions.</p></div></div>${weak.length?`<div class="list-rows">${weak.map(x=>`<div class="report-stat-row"><span>${esc(x.paper)} · ${esc(x.topic)}</span><b class="${x.accuracy<.6?'accuracy-low':'accuracy-good'}">${Math.round(x.accuracy*100)}%</b></div>`).join('')}</div>`:`<div class="empty-inline">Add concept quiz correct/total scores before relying on topic accuracy.</div>`}</article>
       <article class="card analytics-card"><div class="card-title-row"><div><h2>Mock-test trend</h2><p>Raw scores from your entries; not a JRF prediction.</p></div></div>${mocks.length>=2?mockChart(mocks):`<div class="empty-inline">Record at least two mock results to view a trend.</div>`}<div class="report-stat-row"><span>Mocks logged</span><b>${mocks.length}</b></div></article></section>
       <section class="section-title"><div><h2>Priority repair list</h2><p>Work on the topics you have marked High or Tough; reschedule if today's target is unrealistic.</p></div><button class="button secondary small" data-action="navigate" data-view="syllabus">Open checklist</button></section><div class="analytics-grid"><article class="card form-card"><h2>High-priority unfinished · ${high.length}</h2>${high.length?`<div class="list-rows">${high.slice(0,8).map(c=>`<div class="list-row"><span class="tag high">High</span><span class="list-row-main"><strong>${esc(c.title)}</strong><small>${esc(c.paper)} · ${esc(c.unitTitle)}</small></span><button class="quiet-button" data-action="open-concept" data-id="${attr(c.id)}">Open</button></div>`).join('')}</div>`:`<div class="empty-inline">No high-priority mandatory concepts remain unfinished.</div>`}</article><article class="card form-card"><h2>Tough concepts to revisit · ${tough.length}</h2>${tough.length?`<div class="list-rows">${tough.slice(0,8).map(c=>`<div class="list-row"><span class="tag tough">Tough</span><span class="list-row-main"><strong>${esc(c.title)}</strong><small>${esc(c.paper)} · ${esc(c.unitTitle)}</small></span><button class="quiet-button" data-action="open-concept" data-id="${attr(c.id)}">Open</button></div>`).join('')}</div>`:`<div class="empty-inline">No tough mandatory concepts remain unfinished.</div>`}</article></div>
-      <div class="notice warn" style="margin-top:15px"><span>${icon('alert')}</span><span><strong>No qualification prediction:</strong> mock trends and PYQ accuracy describe recorded practice only. They do not predict JRF eligibility. Verify examination dates and current rules in the official NTA bulletin.</span></div>`;
+      ${window.StudyUI.reportPanel()}<div class="notice warn" style="margin-top:15px"><span>${icon('alert')}</span><span><strong>No qualification prediction:</strong> mock trends and PYQ accuracy describe recorded practice only. They do not predict JRF eligibility. Verify examination dates and current rules in the official NTA bulletin.</span></div>`;
   }
   function renderSettings(){
     const intervals=state.settings.revisionIntervals||[1,3,7,14];
@@ -398,8 +323,8 @@
       <section class="card settings-card"><h2>Official syllabus &amp; schedule</h2><p>Unit lists were checked against the current official UGC NET syllabus page/PDFs as accessed 10 Oct 2026. The official portal states its updated syllabi apply from June 2019 onwards; check for a December 2026 cycle-specific notice.</p><div class="source-list"><div class="source-item"><strong>Paper 1 · General Paper, Code 00</strong><a href="${D.PAPER1_SOURCE}" target="_blank" rel="noreferrer">Official PDF ↗</a></div><div class="source-item"><strong>Paper 2 · Psychology, Code 04</strong><a href="${D.PSY_SOURCE}" target="_blank" rel="noreferrer">Official PDF ↗</a></div><div class="source-item"><strong>UGC NET syllabus page</strong><a href="${D.OFFICIAL_PAGE}" target="_blank" rel="noreferrer">UGC syllabus portal ↗</a></div><div class="source-item"><strong>NTA examination schedule</strong><a href="https://ugcnet.nta.ac.in/" target="_blank" rel="noreferrer">Official NTA site ↗</a></div><div class="source-item"><strong>Psychology previous-paper collection</strong><a href="https://ndl.iitkgp.ac.in/cd_document/ugc_net/04_psychology" target="_blank" rel="noreferrer">NDLI collection ↗</a></div></div><div class="notice warn" style="margin-top:11px"><span>${icon('alert')}</span><span>Do not treat difficulty labels, topic priorities or plan pacing as guaranteed exam weightage. Follow the current NTA bulletin for schedule, marking and policy.</span></div></section></div>`;
   }
   function renderMore(){
-    const cards=[['notes','Revision notebook','Researchers, formulas, comparisons and mistake notes','note'],['reports','Reports & analytics','Coverage, study time, accuracy and mock trends','chart'],['settings','Settings & backups','Dates, targets, revision intervals and data export','settings'],['install','Install & offline guide','Android home-screen installation and static hosting','calendar']];
-    return `${pageHeader('More tools','Quick access to study utilities, personal data controls and installation help.')}<div class="quick-links">${cards.map(([view,title,desc,ico])=>`<button class="quick-link" data-action="navigate" data-view="${view}" style="min-height:110px">${icon(ico)}<span>${esc(title)}</span><small style="color:var(--muted);font-size:10px">${esc(desc)}</small></button>`).join('')}</div><div class="section-title"><div><h2>Preparation profile</h2><p>UGC NET December 2026 · JRF target · beginner-friendly, local-first.</p></div></div><div class="card card-pad"><div class="report-stat-row"><span>Selected plan</span><b>${state.settings.activePlan==='15'?'15-day emergency selective pass':'60-day priority-based plan'}</b></div><div class="report-stat-row"><span>Plan start</span><b>${esc(state.settings.startDate||'Not set')}</b></div><div class="report-stat-row"><span>Exam date</span><b>${esc(state.settings.examDate||'Not entered — check NTA')}</b></div><div class="report-stat-row"><span>Storage</span><b>${esc(dbBackend)} · this browser profile</b></div></div>`;
+    const cards=[['practice','Mocks & logs','PYQ log, mock tests, spaced concept revisions and the study timer','chart'],['syllabus','Syllabus checklist','Official unit-by-unit checklist for Paper 2 and Paper 1','book'],['notes','Revision notebook','Researchers, formulas, comparisons and mistake notes','note'],['reports','Reports & analytics','Coverage, study time, accuracy and mock trends','chart'],['settings','Settings & backups','Dates, targets, revision intervals and data export','settings'],['install','Install & offline guide','Android home-screen installation and static hosting','calendar']];
+    return `${pageHeader('More tools','Quick access to study utilities, personal data controls and installation help.')}<div class="quick-links">${cards.map(([view,title,desc,ico])=>`<button class="quick-link" data-action="navigate" data-view="${view}" style="min-height:110px">${icon(ico)}<span>${esc(title)}</span><small style="color:var(--muted);font-size:10px">${esc(desc)}</small></button>`).join('')}</div><div class="section-title"><div><h2>Preparation profile</h2><p>UGC NET December 2026 · JRF target · beginner-friendly, local-first.</p></div></div><div class="card card-pad"><div class="report-stat-row"><span>Selected plan</span><b>15-day revision + practice plan</b></div><div class="report-stat-row"><span>Plan start</span><b>${esc(state.settings.startDate||'Not set')}</b></div><div class="report-stat-row"><span>Exam date</span><b>${esc(state.settings.examDate||'Not entered — check NTA')}</b></div><div class="report-stat-row"><span>Storage</span><b>${esc(dbBackend)} · this browser profile</b></div></div>`;
   }
   function renderInstall(){
     return `${pageHeader('Install & offline guide','This project is a real PWA with a manifest, service worker and local icons. It has not been installed or deployed for you.')}
@@ -444,7 +369,7 @@
       state.settings[field]=value;
       if(field==='dailyTargetMinutes')state.settings.paper2TargetMinutes=Math.max(0,Number(value)-(Number(state.settings.paper1TargetMinutes)||0));
       if(field==='paper1TargetMinutes'||field==='paper2TargetMinutes')state.settings.dailyTargetMinutes=(Number(state.settings.paper1TargetMinutes)||0)+(Number(state.settings.paper2TargetMinutes)||0);
-      if(['dailyTargetMinutes','paper1TargetMinutes','paper2TargetMinutes'].includes(field))for(const plan of ['60','15'])for(const day of state.plans[plan]||[])if(!day.targetCustomized)day.targetMinutes=Number(state.settings.dailyTargetMinutes)||0;
+      if(['dailyTargetMinutes','paper1TargetMinutes','paper2TargetMinutes'].includes(field))for(const plan of ['15'])for(const day of state.plans[plan]||[])if(!day.targetCustomized)day.targetMinutes=Number(state.settings.dailyTargetMinutes)||0;
       return true;
     }
     if(action==='settings-interval'){const i=Number(el.dataset.index);const arr=[...(state.settings.revisionIntervals||[1,3,7,14])];arr[i]=Math.max(1,Number(el.value)||1);state.settings.revisionIntervals=arr;return true;}
@@ -460,12 +385,12 @@
   async function afterChange(message='Saved on this device.') {await persist(message);render();}
   function handleClick(e){
     const btn=e.target.closest('[data-action]');if(!btn)return;
+    if(window.StudyUI.handleClick(btn))return;
     const action=btn.dataset.action;
-    if(action==='navigate'){if(btn.dataset.tab){app.practiceTab=btn.dataset.tab;if(btn.dataset.tab==='timer'&&state.timer.status==='stopped'){state.timer.planId=String(state.settings.activePlan||'60');state.timer.day=Number(app.selectedDay||C.currentDayNumber(state,state.timer.planId));}}navigate(btn.dataset.view);return;}
-    if(action==='continue-today'){const mode=String(state.settings.activePlan||'60');app.selectedDay=C.currentDayNumber(state,mode);navigate('plan');return;}
-    if(action==='select-plan'){selectPlan(btn.dataset.mode);return;}
+    if(action==='navigate'){if(btn.dataset.tab){app.practiceTab=btn.dataset.tab;if(btn.dataset.tab==='timer'&&state.timer.status==='stopped'){state.timer.planId=String('15');state.timer.day=Number(app.selectedDay||C.currentDayNumber(state,state.timer.planId));}}navigate(btn.dataset.view);return;}
+    if(action==='continue-today'){const mode=String('15');app.selectedDay=C.currentDayNumber(state,mode);navigate('plan');return;}
     if(action==='select-day'){app.selectedDay=Number(btn.dataset.day);render();return;}
-    if(action==='go-plan-day'){const planId=String(btn.dataset.planId||state.settings.activePlan||'60');if(state.settings.activePlan!==planId){state.settings.activePlan=planId;state.ui.activePlan=planId;}app.selectedDay=Number(btn.dataset.day);navigate('plan');persist();return;}
+    if(action==='go-plan-day'){const planId='15';if(state.settings.activePlan!==planId){state.settings.activePlan=planId;state.ui.activePlan=planId;}app.selectedDay=Number(btn.dataset.day);navigate('plan');persist();return;}
     if(action==='open-syllabus-paper'){app.syllabusPaper=btn.dataset.paper||'Paper 2';app.syllabusUnit='all';app.syllabusDay='all';app.syllabusFilter='all';app.syllabusQuery='';navigate('syllabus');return;}
     if(action==='practice-tab'){app.practiceTab=btn.dataset.tab;render();return;}
     if(action==='toggle-details'){const target=document.getElementById(btn.dataset.target);if(target)target.open=!target.open;return;}
@@ -479,7 +404,7 @@
     if(action==='export-notebook'){exportNotebook();return;}
     if(action==='reset-data'){
       if(!confirm('Reset everything on this device? This permanently removes study progress, dates, notes, sessions, PYQs, revisions and mocks. Export a backup first if needed.'))return;
-      state=D.createInitialState();app.selectedDay=C.currentDayNumber(state,'60');app.view='dashboard';app.selectedNoteId=null;window.TrackDB.clear().then(()=>persist('Tracker reset and reseeded.')).then(render);return;
+      state=D.createInitialState();app.selectedDay=C.currentDayNumber(state,'15');app.view='dashboard';app.selectedNoteId=null;window.TrackDB.clear().then(()=>persist('Tracker reset and reseeded.')).then(render);return;
     }
     if(action==='delete-plan-task'){
       const day=C.planDay(state,state.settings.activePlan,btn.dataset.day);if(!day)return;
@@ -520,12 +445,14 @@
   }
   function handleInput(e){
     const el=e.target;const action=el.dataset.action;
+    if(window.StudyUI.handleInput(el))return;
     if(action==='syllabus-search'){app.syllabusQuery=el.value;render();return;}
     if(action==='note-search'){app.noteQuery=el.value;render();return;}
     if(['concept-field','task-field','day-note','topic-note'].includes(action)){updateSimpleAction(el);persistSoon();return;}
   }
   async function handleChange(e){
     const el=e.target;const action=el.dataset.action;if(!action)return;
+    if(window.StudyUI.handleChange(el))return;
     if(action==='syllabus-paper'){app.syllabusPaper=el.value;app.syllabusUnit='all';app.syllabusDay='all';render();return;}
     if(action==='syllabus-filter'){app.syllabusFilter=el.value;render();return;}
     if(action==='syllabus-unit'){app.syllabusUnit=el.value;render();return;}
@@ -573,7 +500,7 @@
   function startTimer(){
     if(state.timer.status==='running'){showToast('Timer is already running.');return;}
     state.timer.status='running';state.timer.startedAt=Date.now();state.timer.elapsedMs=Number(state.timer.elapsedMs)||0;
-    state.timer.planId=String(state.timer.planId||state.settings.activePlan||'60');state.timer.day=Number(state.timer.day||app.selectedDay||C.currentDayNumber(state,state.timer.planId));
+    state.timer.planId='15';state.timer.day=Number(state.timer.day||app.selectedDay||C.currentDayNumber(state,state.timer.planId));
     persist('Timer started.').then(render);startTick();
   }
   function pauseTimer(){if(state.timer.status!=='running')return;state.timer.elapsedMs=currentTimerMs();state.timer.status='paused';state.timer.startedAt=null;persist('Timer paused; not logged yet.').then(render);}
@@ -582,7 +509,7 @@
     const t=state.timer;if(!t||t.status==='stopped'){showToast('No active timer to stop.');return;}
     const elapsed=currentTimerMs();if(elapsed<30000){state.timer={...t,status:'stopped',startedAt:null,elapsedMs:0};persist('Short session discarded; no study record was created.').then(render);return;}
     const end=new Date();const start=new Date(end.getTime()-elapsed);const duration=Math.max(1,Math.round(elapsed/60000));
-    const session={id:uid('session'),date:C.TODAY(start),paper:t.paper||'Paper 2',category:t.category||'new-learning',unitId:t.unitId||'',planId:String(t.planId||state.settings.activePlan||'60'),day:Number(t.day)||1,durationMinutes:duration,durationSeconds:Math.round(elapsed/1000),startedAt:start.toISOString(),endedAt:end.toISOString(),startTime:start.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),endTime:end.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})};
+    const session={id:uid('session'),date:C.TODAY(start),paper:t.paper||'Paper 2',category:t.category||'new-learning',unitId:t.unitId||'',planId:'15',day:Number(t.day)||1,durationMinutes:duration,durationSeconds:Math.round(elapsed/1000),startedAt:start.toISOString(),endedAt:end.toISOString(),startTime:start.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),endTime:end.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})};
     state.sessions.push(session);state.timer={...t,status:'stopped',startedAt:null,elapsedMs:0};persist(`Saved a ${duration}-minute focused session.`).then(render);
   }
   function startTick(){if(window.__studyTimerInterval)return;window.__studyTimerInterval=setInterval(()=>{if(state?.timer?.status==='running')updateTimerDisplay();else{clearInterval(window.__studyTimerInterval);window.__studyTimerInterval=null;}},1000);}
@@ -598,9 +525,9 @@
   function exportCSVRows(headers,rows,filename){const quote=v=>`"${String(v??'').replace(/"/g,'""')}"`;const csv=[headers,...rows].map(r=>r.map(quote).join(',')).join('\r\n');downloadBlob(csv,'text/csv;charset=utf-8',filename);}
   function exportPyqCSV(){const h=['Date','Paper','Unit','Topic','ExamYear','Identifier','Result','TimeSeconds','ErrorType','CorrectiveNote','ReattemptDate'];exportCSVRows(h,state.pyqs.map(q=>[q.date,q.paper,unitTitle(q.unitId),q.topic,q.examYear,q.identifier,q.result,q.timeSeconds,q.errorType,q.correctiveNote,q.reattemptDate]),`ugc-net-pyq-log-${today()}.csv`);showToast('PYQ CSV exported.');}
   function exportTasksCSV(){
-    const h=['TaskID','Paper','UnitID','Unit','Topic','Subtopic','Concept','LearningTarget','Priority','Difficulty','StudyValue','TaskType','EstimatedMinutes','Status','Mandatory','Confidence','QuizCorrect','QuizTotal','LastStudied','CompletedAt','NextRevisionDate','Plan60Day','Plan15Day','Source','Notes'];
-    const rows=state.concepts.map(c=>[c.id,c.paper,c.unitId,c.unitTitle,c.topic,c.subtopic,c.title,c.learningTarget,c.priority,c.difficulty,c.studyValue,c.taskType,c.estimatedMinutes,c.status,c.mandatory,c.confidence,c.quizCorrect,c.quizTotal,c.lastStudied,c.completedAt,c.nextRevisionDate,findConceptDay('60',c.id),findConceptDay('15',c.id),c.source,c.notes]);
-    for(const planId of ['60','15']) for(const day of state.plans[planId]||[]) for(const t of day.tasks||[]) rows.push([t.id,t.paper||'',t.unitId||'',unitTitle(t.unitId),t.topic||'',t.subtopic||'',t.title||'',t.notes||'', '', '', '',t.taskType||'',t.estimatedMinutes||0,t.done?'completed':'not_started',false,'','','','',t.completedAt||'','',planId==='60'?day.day:'',planId==='15'?day.day:'',t.source||'Plan task',t.notes||'']);
+    const h=['TaskID','Paper','UnitID','Unit','Topic','Subtopic','Concept','LearningTarget','Priority','Difficulty','StudyValue','TaskType','EstimatedMinutes','Status','Mandatory','Confidence','QuizCorrect','QuizTotal','LastStudied','CompletedAt','NextRevisionDate','Plan15Day','Source','Notes'];
+    const rows=state.concepts.map(c=>[c.id,c.paper,c.unitId,c.unitTitle,c.topic,c.subtopic,c.title,c.learningTarget,c.priority,c.difficulty,c.studyValue,c.taskType,c.estimatedMinutes,c.status,c.mandatory,c.confidence,c.quizCorrect,c.quizTotal,c.lastStudied,c.completedAt,c.nextRevisionDate,findConceptDay('15',c.id),c.source,c.notes]);
+    for(const planId of ['15']) for(const day of state.plans[planId]||[]) for(const t of day.tasks||[]) rows.push([t.id,t.paper||'',t.unitId||'',unitTitle(t.unitId),t.topic||'',t.subtopic||'',t.title||'',t.notes||'', '', '', '',t.taskType||'',t.estimatedMinutes||0,t.done?'completed':'not_started',false,'','','','',t.completedAt||'','',planId==='15'?day.day:'',t.source||'Plan task',t.notes||'']);
     exportCSVRows(h,rows,`ugc-net-study-progress-${today()}.csv`);showToast('Task, plan-task and progress CSV exported.');
   }
   function exportJSON(){const blob=JSON.stringify(state,null,2);downloadBlob(blob,'application/json;charset=utf-8',`ugc-net-jrf-backup-${today()}.json`);showToast('Full JSON backup exported.');}
@@ -615,7 +542,7 @@
       const parsed=JSON.parse(await file.text());const valid=C.validateBackup(parsed);if(!valid.ok){showToast(`Import rejected: ${valid.error}`,'error');return;}
       const count=state.concepts.filter(c=>c.status==='completed').length;
       if(!confirm(`This valid ${file.name} backup contains ${parsed.concepts.length} concepts. Importing will replace all current local data${count?` (including ${count} completed concepts)`:''}. Export first if you want to keep a copy. Continue?`))return;
-      state=C.hydrateImported(parsed);app.selectedDay=C.currentDayNumber(state,state.settings.activePlan||'60');app.view='dashboard';app.selectedNoteId=null;await persist('Backup restored successfully.');render();
+      state=C.hydrateImported(parsed);app.selectedDay=C.currentDayNumber(state,'15');app.view='dashboard';app.selectedNoteId=null;await persist('Backup restored successfully.');render();
     }catch(error){showToast(`Import failed: ${error.message||'invalid JSON'}`,'error');}
   }
   async function importPyqCsv(file){
@@ -652,8 +579,9 @@
       if(loaded.value){
         const v=C.validateBackup(loaded.value);if(v.ok)state=C.hydrateImported(loaded.value);else{state=D.createInitialState();showToast('Saved data could not be read; a fresh tracker was started.','error');}
       }else state=D.createInitialState();
-      state.settings.activePlan=String(state.settings.activePlan||state.ui?.activePlan||'60');state.ui ||= {};state.ui.activePlan=state.settings.activePlan;
-      app.selectedDay=C.currentDayNumber(state,state.settings.activePlan);
+      state.settings.activePlan='15';state.ui ||= {};state.ui.activePlan=state.settings.activePlan;
+      app.selectedDay=C.currentDayNumber(state,'15');
+      window.StudyUI.init({get state(){return state;},C,D,app,esc,attr,icon,pageHeader,renderMetric,examCountdownText,dayTopicGroup,dayPlanTask,uid,today,navigate,render,persist,persistSoon,toast:showToast});
       if(state.timer?.status==='running')startTick();
       document.addEventListener('click',handleClick);document.addEventListener('change',handleChange);document.addEventListener('input',handleInput);document.addEventListener('submit',handleSubmit);document.addEventListener('keydown',keydown);
       const themeButton=$('#theme-toggle');themeButton?.addEventListener('click',()=>{state.settings.theme=state.settings.theme==='dark'?'light':'dark';persist().then(render);});

@@ -1,0 +1,57 @@
+<svg width="860" height="420" viewBox="0 0 860 420" xmlns="http://www.w3.org/2000/svg" title="Diagram">
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><polygon points="0,0 8,3.5 0,7" fill="#9CA3AF"/></marker></defs>
+<rect x="30" y="90" width="80" height="70" rx="8" ry="4" fill="#FFFFFF" stroke="#7C3AED" stroke-width="2"/>
+<rect x="30" y="90" width="80" height="26" rx="6" ry="4" fill="#7C3AED" stroke="none"/>
+<text x="70.0" y="103" font-family="Calibri" font-size="9.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="70.0" dy="0">1. Śṛṅgāra</tspan></text>
+<text x="70.0" y="124" font-family="Calibri" font-size="8.5" fill="#1F3A5F" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="70.0" dy="0">Love</tspan></text>
+<text x="70.0" y="140" font-family="Calibri" font-size="7.5" fill="#595959" text-anchor="middle" dominant-baseline="middle"><tspan x="70.0" dy="0">Bhāva = portrayed state</tspan></text>
+<line x1="112" y1="125.0" x2="120" y2="125.0" stroke="#7C3AED" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="122" y="90" width="80" height="70" rx="8" ry="4" fill="#FFFFFF" stroke="#0891B2" stroke-width="2"/>
+<rect x="122" y="90" width="80" height="26" rx="6" ry="4" fill="#0891B2" stroke="none"/>
+<text x="162.0" y="103" font-family="Calibri" font-size="9.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="162.0" dy="0">2. Hāsya</tspan></text>
+<text x="162.0" y="124" font-family="Calibri" font-size="8.5" fill="#1F3A5F" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="162.0" dy="0">Humour</tspan></text>
+<text x="162.0" y="140" font-family="Calibri" font-size="7.5" fill="#595959" text-anchor="middle" dominant-baseline="middle"><tspan x="162.0" dy="0">Bhāva = portrayed state</tspan></text>
+<line x1="204" y1="125.0" x2="212" y2="125.0" stroke="#0891B2" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="214" y="90" width="80" height="70" rx="8" ry="4" fill="#FFFFFF" stroke="#BE185D" stroke-width="2"/>
+<rect x="214" y="90" width="80" height="26" rx="6" ry="4" fill="#BE185D" stroke="none"/>
+<text x="254.0" y="103" font-family="Calibri" font-size="9.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="254.0" dy="0">3. Karuṇa</tspan></text>
+<text x="254.0" y="124" font-family="Calibri" font-size="8.5" fill="#1F3A5F" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="254.0" dy="0">Compassion</tspan></text>
+<text x="254.0" y="140" font-family="Calibri" font-size="7.5" fill="#595959" text-anchor="middle" dominant-baseline="middle"><tspan x="254.0" dy="0">Bhāva = portrayed state</tspan></text>
+<line x1="296" y1="125.0" x2="304" y2="125.0" stroke="#BE185D" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="30" y="172" width="80" height="70" rx="8" ry="4" fill="#FFFFFF" stroke="#92400E" stroke-width="2"/>
+<rect x="30" y="172" width="80" height="26" rx="6" ry="4" fill="#92400E" stroke="none"/>
+<text x="70.0" y="185" font-family="Calibri" font-size="9.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="70.0" dy="0">4. Raudra</tspan></text>
+<text x="70.0" y="206" font-family="Calibri" font-size="8.5" fill="#1F3A5F" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="70.0" dy="0">Anger</tspan></text>
+<text x="70.0" y="222" font-family="Calibri" font-size="7.5" fill="#595959" text-anchor="middle" dominant-baseline="middle"><tspan x="70.0" dy="0">Bhāva = portrayed state</tspan></text>
+<line x1="112" y1="207.0" x2="120" y2="207.0" stroke="#92400E" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="122" y="172" width="80" height="70" rx="8" ry="4" fill="#FFFFFF" stroke="#047857" stroke-width="2"/>
+<rect x="122" y="172" width="80" height="26" rx="6" ry="4" fill="#047857" stroke="none"/>
+<text x="162.0" y="185" font-family="Calibri" font-size="9.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="162.0" dy="0">5. Vīra</tspan></text>
+<text x="162.0" y="206" font-family="Calibri" font-size="8.5" fill="#1F3A5F" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="162.0" dy="0">Heroism</tspan></text>
+<text x="162.0" y="222" font-family="Calibri" font-size="7.5" fill="#595959" text-anchor="middle" dominant-baseline="middle"><tspan x="162.0" dy="0">Bhāva = portrayed state</tspan></text>
+<line x1="204" y1="207.0" x2="212" y2="207.0" stroke="#047857" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="214" y="172" width="80" height="70" rx="8" ry="4" fill="#FFFFFF" stroke="#059669" stroke-width="2"/>
+<rect x="214" y="172" width="80" height="26" rx="6" ry="4" fill="#059669" stroke="none"/>
+<text x="254.0" y="185" font-family="Calibri" font-size="9.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="254.0" dy="0">6. Bhayānaka</tspan></text>
+<text x="254.0" y="206" font-family="Calibri" font-size="8.5" fill="#1F3A5F" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="254.0" dy="0">Fear</tspan></text>
+<text x="254.0" y="222" font-family="Calibri" font-size="7.5" fill="#595959" text-anchor="middle" dominant-baseline="middle"><tspan x="254.0" dy="0">Bhāva = portrayed state</tspan></text>
+<line x1="296" y1="207.0" x2="304" y2="207.0" stroke="#059669" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="30" y="254" width="80" height="70" rx="8" ry="4" fill="#FFFFFF" stroke="#9D174D" stroke-width="2"/>
+<rect x="30" y="254" width="80" height="26" rx="6" ry="4" fill="#9D174D" stroke="none"/>
+<text x="70.0" y="267" font-family="Calibri" font-size="9.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="70.0" dy="0">7. Bībhatsa</tspan></text>
+<text x="70.0" y="288" font-family="Calibri" font-size="8.5" fill="#1F3A5F" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="70.0" dy="0">Disgust</tspan></text>
+<text x="70.0" y="304" font-family="Calibri" font-size="7.5" fill="#595959" text-anchor="middle" dominant-baseline="middle"><tspan x="70.0" dy="0">Bhāva = portrayed state</tspan></text>
+<line x1="112" y1="289.0" x2="120" y2="289.0" stroke="#9D174D" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="122" y="254" width="80" height="70" rx="8" ry="4" fill="#FFFFFF" stroke="#2563EB" stroke-width="2"/>
+<rect x="122" y="254" width="80" height="26" rx="6" ry="4" fill="#2563EB" stroke="none"/>
+<text x="162.0" y="267" font-family="Calibri" font-size="9.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="162.0" dy="0">8. Adbhuta</tspan></text>
+<text x="162.0" y="288" font-family="Calibri" font-size="8.5" fill="#1F3A5F" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="162.0" dy="0">Wonder</tspan></text>
+<text x="162.0" y="304" font-family="Calibri" font-size="7.5" fill="#595959" text-anchor="middle" dominant-baseline="middle"><tspan x="162.0" dy="0">Bhāva = portrayed state</tspan></text>
+<line x1="204" y1="289.0" x2="212" y2="289.0" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="214" y="254" width="80" height="70" rx="8" ry="4" fill="#FFFFFF" stroke="#0E6E6E" stroke-width="2"/>
+<rect x="214" y="254" width="80" height="26" rx="6" ry="4" fill="#0E6E6E" stroke="none"/>
+<text x="254.0" y="267" font-family="Calibri" font-size="9.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="254.0" dy="0">9. Śānta</tspan></text>
+<text x="254.0" y="288" font-family="Calibri" font-size="8.5" fill="#1F3A5F" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="254.0" dy="0">Peace</tspan></text>
+<text x="254.0" y="304" font-family="Calibri" font-size="7.5" fill="#595959" text-anchor="middle" dominant-baseline="middle"><tspan x="254.0" dy="0">Bhāva = portrayed state</tspan></text>
+<text x="420" y="360" font-family="Calibri" font-size="10" fill="#7C2D12" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="420" dy="0">Rasa (audience essence) arises from Bhāva (performer's state) — Bharata's Nāṭyaśāstra.</tspan></text>
+</svg>

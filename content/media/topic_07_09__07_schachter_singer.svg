@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:svg xmlns:ns0="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <ns0:rect x="100" y="100" width="400" height="160" fill="#f1f5f9" stroke="#475569" stroke-width="2" />
+  <ns0:text x="300" y="60" font-size="16" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Schachter–Singer Two-Factor Theory</ns0:text>
+  <ns0:text x="150" y="140" font-size="12" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Physiological arousal</ns0:text>
+  <ns0:circle cx="150" cy="170" r="30" fill="#fca5a5" stroke="#475569" stroke-width="2" />
+  <ns0:text x="300" y="140" font-size="12" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Cognitive label</ns0:text>
+  <ns0:circle cx="300" cy="170" r="30" fill="#a5f3fc" stroke="#475569" stroke-width="2" />
+  <ns0:text x="450" y="140" font-size="12" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Emotion</ns0:text>
+  <ns0:circle cx="450" cy="170" r="30" fill="#86efac" stroke="#475569" stroke-width="2" />
+  <ns0:line x1="180" y1="170" x2="270" y2="170" stroke="#475569" stroke-width="2" />
+  <ns0:line x1="330" y1="170" x2="420" y2="170" stroke="#475569" stroke-width="2" />
+  <ns0:text x="300" y="230" font-size="12" fill="#1e293b" text-anchor="middle" font-family="Arial, sans-serif">Arousal + cognitive interpretation → specific emotion</ns0:text>
+</ns0:svg>

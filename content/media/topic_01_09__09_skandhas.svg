@@ -1,0 +1,30 @@
+<svg width="840" height="460" viewBox="0 0 840 460" xmlns="http://www.w3.org/2000/svg" title="Diagram">
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><polygon points="0,0 8,3.5 0,7" fill="#9CA3AF"/></marker></defs>
+<rect x="360" y="230" width="120" height="60" rx="8" ry="4" fill="#FFFFFF" stroke="#7C2D12" stroke-width="2"/>
+<text x="420" y="260" font-family="Calibri" font-size="12" fill="#1F3A5F" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="420" dy="0">Anattā</tspan><tspan x="420" dy="12.0">(no-self)</tspan></text>
+<line x1="420.0" y1="215.0" x2="420.0" y2="165.0" stroke="#7C3AED" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="375.0" y="105.0" width="90" height="50" rx="8" ry="4" fill="#FFFFFF" stroke="#7C3AED" stroke-width="2"/>
+<text x="420.0" y="122.0" font-family="Calibri" font-size="10.5" fill="#7C3AED" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="420.0" dy="0">Rūpa</tspan></text>
+<text x="420.0" y="140.0" font-family="Calibri" font-size="8.5" fill="#222222" text-anchor="middle" dominant-baseline="middle"><tspan x="420.0" dy="0">Form</tspan></text>
+<text x="420" y="390" font-family="Calibri" font-size="10" fill="#7C2D12" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="420" dy="0">Five aggregates — the 'self' is a temporary, changing collection.</tspan></text>
+<line x1="462.7975432332819" y1="246.09423525312738" x2="510.35036904803957" y2="230.64338553438" stroke="#0891B2" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="498.6373471183699" y="194.82779073125684" width="90" height="50" rx="8" ry="4" fill="#FFFFFF" stroke="#0891B2" stroke-width="2"/>
+<text x="543.6373471183699" y="211.82779073125684" font-family="Calibri" font-size="10.5" fill="#0891B2" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="543.6373471183699" dy="0">Vedanā</tspan></text>
+<text x="543.6373471183699" y="229.82779073125684" font-family="Calibri" font-size="8.5" fill="#222222" text-anchor="middle" dominant-baseline="middle"><tspan x="543.6373471183699" dy="0">Feeling</tspan></text>
+<text x="420" y="390" font-family="Calibri" font-size="10" fill="#7C2D12" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="420" dy="0">Five aggregates — the 'self' is a temporary, changing collection.</tspan></text>
+<line x1="446.4503363531613" y1="296.40576474687265" x2="475.839598967785" y2="336.85661446562005" stroke="#BE185D" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="451.4120827980215" y="340.1722092687432" width="90" height="50" rx="8" ry="4" fill="#FFFFFF" stroke="#BE185D" stroke-width="2"/>
+<text x="496.4120827980215" y="357.1722092687432" font-family="Calibri" font-size="10.5" fill="#BE185D" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="496.4120827980215" dy="0">Saññā</tspan></text>
+<text x="496.4120827980215" y="375.1722092687432" font-family="Calibri" font-size="8.5" fill="#222222" text-anchor="middle" dominant-baseline="middle"><tspan x="496.4120827980215" dy="0">Perception</tspan></text>
+<text x="420" y="390" font-family="Calibri" font-size="10" fill="#7C2D12" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="420" dy="0">Five aggregates — the 'self' is a temporary, changing collection.</tspan></text>
+<line x1="393.5496636468387" y1="296.40576474687265" x2="364.160401032215" y2="336.85661446562005" stroke="#92400E" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="298.5879172019785" y="340.1722092687432" width="90" height="50" rx="8" ry="4" fill="#FFFFFF" stroke="#92400E" stroke-width="2"/>
+<text x="343.5879172019785" y="357.1722092687432" font-family="Calibri" font-size="10.5" fill="#92400E" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="343.5879172019785" dy="0">Saṅkhāra</tspan></text>
+<text x="343.5879172019785" y="375.1722092687432" font-family="Calibri" font-size="8.5" fill="#222222" text-anchor="middle" dominant-baseline="middle"><tspan x="343.5879172019785" dy="0">Mental formations</tspan></text>
+<text x="420" y="390" font-family="Calibri" font-size="10" fill="#7C2D12" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="420" dy="0">Five aggregates — the 'self' is a temporary, changing collection.</tspan></text>
+<line x1="377.2024567667181" y1="246.09423525312738" x2="329.6496309519604" y2="230.64338553438003" stroke="#059669" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="251.36265288163003" y="194.82779073125687" width="90" height="50" rx="8" ry="4" fill="#FFFFFF" stroke="#059669" stroke-width="2"/>
+<text x="296.36265288163" y="211.82779073125687" font-family="Calibri" font-size="10.5" fill="#059669" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="296.36265288163" dy="0">Viññāṇa</tspan></text>
+<text x="296.36265288163" y="229.82779073125687" font-family="Calibri" font-size="8.5" fill="#222222" text-anchor="middle" dominant-baseline="middle"><tspan x="296.36265288163" dy="0">Consciousness</tspan></text>
+<text x="420" y="390" font-family="Calibri" font-size="10" fill="#7C2D12" font-weight="bold" text-anchor="middle" dominant-baseline="middle"><tspan x="420" dy="0">Five aggregates — the 'self' is a temporary, changing collection.</tspan></text>
+</svg>

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:svg xmlns:ns0="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <ns0:rect x="100" y="60" width="400" height="260" fill="#f1f5f9" stroke="#475569" stroke-width="2" />
+  <ns0:text x="300" y="40" font-size="16" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">PERMA Model of Well-being</ns0:text>
+  <ns0:circle cx="140" cy="160" r="35" fill="#bfdbfe" stroke="#475569" stroke-width="2" />
+  <ns0:text x="140" y="165" font-size="10" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Positive Emotion</ns0:text>
+  <ns0:circle cx="220" cy="160" r="35" fill="#bfdbfe" stroke="#475569" stroke-width="2" />
+  <ns0:text x="220" y="165" font-size="10" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Engagement</ns0:text>
+  <ns0:circle cx="300" cy="160" r="35" fill="#bfdbfe" stroke="#475569" stroke-width="2" />
+  <ns0:text x="300" y="165" font-size="10" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Relationships</ns0:text>
+  <ns0:circle cx="380" cy="160" r="35" fill="#bfdbfe" stroke="#475569" stroke-width="2" />
+  <ns0:text x="380" y="165" font-size="10" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Meaning</ns0:text>
+  <ns0:circle cx="460" cy="160" r="35" fill="#bfdbfe" stroke="#475569" stroke-width="2" />
+  <ns0:text x="460" y="165" font-size="10" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Accomplishment</ns0:text>
+  <ns0:text x="300" y="230" font-size="12" fill="#1e293b" text-anchor="middle" font-family="Arial, sans-serif">Seligman: Five building blocks of well-being</ns0:text>
+</ns0:svg>

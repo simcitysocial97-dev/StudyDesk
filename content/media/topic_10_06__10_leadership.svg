@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:svg xmlns:ns0="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <ns0:rect x="100" y="60" width="400" height="260" fill="#f1f5f9" stroke="#475569" stroke-width="2" />
+  <ns0:text x="300" y="40" font-size="16" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Leadership Styles</ns0:text>
+  <ns0:rect x="100" y="150" width="100" height="60" fill="#f1f5f9" stroke="#475569" stroke-width="2" rx="6" />
+  <ns0:text x="150" y="130" font-size="11" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Transformational</ns0:text>
+  <ns0:text x="150" y="170" font-size="10" fill="#1e293b" text-anchor="middle" font-family="Arial, sans-serif">Workplace behavior</ns0:text>
+  <ns0:rect x="230" y="150" width="100" height="60" fill="#f1f5f9" stroke="#475569" stroke-width="2" rx="6" />
+  <ns0:text x="280" y="130" font-size="11" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Transactional</ns0:text>
+  <ns0:text x="280" y="170" font-size="10" fill="#1e293b" text-anchor="middle" font-family="Arial, sans-serif">Workplace behavior</ns0:text>
+  <ns0:rect x="360" y="150" width="100" height="60" fill="#f1f5f9" stroke="#475569" stroke-width="2" rx="6" />
+  <ns0:text x="410" y="130" font-size="11" fill="bold" text-anchor="middle" font-family="Arial, sans-serif">Servant</ns0:text>
+  <ns0:text x="410" y="170" font-size="10" fill="#1e293b" text-anchor="middle" font-family="Arial, sans-serif">Workplace behavior</ns0:text>
+</ns0:svg>
